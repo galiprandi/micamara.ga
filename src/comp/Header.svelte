@@ -31,6 +31,7 @@
 
       <svg
         id="logo"
+        aria-label="Logo Gadget"
         class="logo"
         version="1.1"
         viewBox="0 0 90 24"
