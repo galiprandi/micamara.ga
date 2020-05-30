@@ -8,8 +8,8 @@
   "scripts": {
     "dev": "parcel ./src/index.html --open --host 192.168.1.50 --port 8080",
     "build": "rm -f -r ./docs && parcel build ./src/index.html --out-dir docs",
-    "deploy": "npm run resizeimages; npm run build; git add ./docs/.; git commit -m \"New Deploy: `date`\"; git push",
-    "resizeimages": "mogrify -resize 500x500 -gravity center -extent 500x500 static_asset/products_images/*.jpg"
+    "deploy": "npm run resize-images; npm run build; git add ./docs/.; git commit -m \"New Deploy: `date`\"; git push",
+    "resize-images": "identify -format '%w %h %i\\n' ./static_asset/products_images/*.jpg | grep --invert-match '500 500' | awk '{print $3}' | tr '\\n' '\\0' | xargs -0 mogrify -verbose -resize '490x490' -extent '500x500'"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.4",
