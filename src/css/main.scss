@@ -1,0 +1,42 @@
+/*
+* Global Secction
+*/
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+:root {
+    --primary: #1a535cff;
+    --secondary: #ff6b6bff;
+    --dark: rgb(34, 34, 34);
+    --light: white;
+  
+    --color1: #1a535cff;
+    --color2: #4ecdc4ff;
+    --color3: #f7fff7ff;
+  
+    --color4: #ff6b6bff;
+    --color5: #ffe66dff;
+  }
+  /* General styles */
+  *,*::after, *::before {
+    box-sizing: border-box;
+  }
+  body {
+    color: var(--dark);
+    font-family: "Montserrat", sans-serif;
+  }
+  a,
+  a:visited {
+    color: var(--color1);
+  }
+  a:hover {
+    color: var(--color4);
+  }
+  .btn-icon,
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+
+/*
+* / Global Secction
+*/

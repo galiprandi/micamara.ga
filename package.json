@@ -1,0 +1,22 @@
+{
+  "name": "micamara.ga",
+  "version": "1.0.0",
+  "description": "micamara.ga website",
+  "main": "./src/index.html",
+  "browserslist": [
+    "last 1 chrome versions"
+  ],
+  "scripts": {
+    "dev": "parcel ./src/index.html --open --host 192.168.1.50 --port 8080",
+    "build": "parcel build ./src/index.html --out-dir docs"
+  },
+  "author": "Germán Aliprandi",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.4",
+    "parcel-plugin-robot": "^1.0.0",
+    "parcel-plugin-svelte": "^4.0.6",
+    "sass": "^1.26.7",
+    "svelte": "^3.23.0"
+  }
+}
