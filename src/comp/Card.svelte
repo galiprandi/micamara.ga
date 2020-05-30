@@ -4,7 +4,7 @@
   export let item;
   let modal = false;
 
-  const imgPath = "//imgs.micamara.ga/products/";
+  const imgPath = "/products_images/";
 
   function cardClick() {
     const cant = document.querySelectorAll(".modal").length;
