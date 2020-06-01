@@ -3,8 +3,8 @@
     display: flex;
     justify-content: space-between;
     padding: 15px;
-    border-top: 10px solid var(--color1);
-    background-color: var(--color5);
+    border-top: 10px solid var(--color-2);
+    background-color: var(--color-1);
     height: 30px;
     box-sizing: content-box;
   }
@@ -16,12 +16,12 @@
   }
 
   #logo {
-    stroke: var(--primary);
+    stroke: var(--color-2);
     height: 36px;
     width: auto;
   }
   #logo:hover {
-    stroke: var(--secondary);
+    stroke: var(--Color-3);
   }
 </style>
 

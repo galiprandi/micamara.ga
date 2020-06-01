@@ -23,8 +23,8 @@
     justify-content: space-between;
     width: 100%;
     height: 55px;
-    color: var(--color1);
-    background-color: var(--color5);
+    color: var(--color-2);
+    background-color: var(--color-1);
     padding: 10px 30px;
   }
   .floatContainer {
@@ -55,19 +55,19 @@
   }
   .btn-icon {
     cursor: pointer;
-    stroke: var(--primary);
+    stroke: var(--color-2);
     width: 32px;
     height: 32px;
   }
   .btn-icon:hover,
   .btn-icon:active {
-    stroke: var(--secondary);
+    stroke: var(--Color-3);
   }
   .btn-icon.filled {
-    fill: var(--primary);
+    fill: var(--color-2);
   }
   .btn-icon.filled:hover {
-    fill: var(--secondary);
+    fill: var(--color-3);
   }
 </style>
 

@@ -4,17 +4,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
 :root {
-    --primary: #1a535cff;
-    --secondary: #ff6b6bff;
+    --color-1: #ffe66dff; //color5, main
+    --color-2: #1a535cff; // primary, color1
+    --Color-3: #ff6b6bff; // secondary, color4
+    --color-4: white; // light
+    --color-5: rgb(34, 34, 34); //dark
+    
+    
+    /*
     --dark: rgb(34, 34, 34);
     --light: white;
-  
+    --main: #ffe66dff;
+    --primary: #1a535cff;
+    --secondary: #ff6b6bff;
     --color1: #1a535cff;
     --color2: #4ecdc4ff;
     --color3: #f7fff7ff;
-  
     --color4: #ff6b6bff;
     --color5: #ffe66dff;
+    */
   }
   /* General styles */
   *,*::after, *::before {
@@ -26,10 +34,10 @@
   }
   a,
   a:visited {
-    color: var(--color1);
+    color: var(--color-2);
   }
   a:hover {
-    color: var(--color4);
+    color: var(--color-3);
   }
   .btn-icon,
   svg {

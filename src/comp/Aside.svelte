@@ -29,8 +29,8 @@
     top: 0;
     height: 100vh;
     overflow: scroll;
-    background: var(--color1);
-    color: var(--color3);
+    background: var(--color-2);
+    color: var(--color-4);
     line-height: 2.5;
     text-align: right;
     transition: 0.4s all cubic-bezier(1, 0, 0, 1);
@@ -39,6 +39,7 @@
 
   aside.active {
     right: 0;
+    min-width: 250px;
   }
 
   aside nav label {
@@ -54,13 +55,13 @@
     cursor: pointer;
   }
   li:hover {
-    color: var(--color1);
-    background: var(--color5);
+    color: var(--color-2);
+    background: var(--color-1);
   }
   label {
-    opacity: 0.5;
-    background: var(--color3);
-    color: var(--color1);
+    opacity: 0.7;
+    background: var(--color-4);
+    color: var(--color-5);
     cursor: pointer;
   }
 
@@ -74,11 +75,11 @@
   }
   .inputs:checked + label {
     opacity: 1;
-    color: var(--color5);
+    color: var(--color-1);
   }
   .inputs:checked + label,
   section > div {
-    background: var(--color1);
+    background: var(--color-2);
   }
 </style>
 

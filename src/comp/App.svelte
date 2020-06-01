@@ -159,7 +159,7 @@
   main {
     /* font-family: "Montserrat", sans-serif; */
     height: 100vh;
-    color: var(--dark);
+    color: var(--color-5);
     font-size: 1em;
   }
 </style>

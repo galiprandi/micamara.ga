@@ -42,7 +42,7 @@
     padding: 7px;
   }
   .aditional button {
-    color: var(--dark);
+    color: var(--color-5);
   }
   .name {
     font-size: 16px;
@@ -53,12 +53,12 @@
     padding: 0;
     margin-right: 10px;
     font-size: 80%;
-    color: var(--color1);
+    color: var(--color-2);
     background: inherit;
     cursor: pointer;
   }
   button:hover {
-    color: var(--color4);
+    color: var(--color-3);
   }
   .details {
     display: none;
@@ -74,7 +74,7 @@
     font-size: 80%;
     padding: 1px 4px;
     border-radius: 2px;
-    color: var(--primary);
+    color: var(--color-2);
     font-weight: 600;
   }
 
@@ -88,7 +88,7 @@
     right: 0;
     background: white;
     z-index: 1;
-    border: 1em solid var(--color5);
+    border: 1em solid var(--color-1);
     box-shadow: 5px 5px 15px 10000px rgba(0, 0, 0, 0.6);
     border-radius: 7px;
     text-align: center;
