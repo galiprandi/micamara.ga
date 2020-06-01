@@ -8,12 +8,22 @@
         "sizes": "64x64"
       },
       {
-        "src": "public/logo-512.svg",
+        "src": "public/logo-144.png",
+        "type": "image/png",
+        "sizes": "144x144"
+      },
+      {
+        "src": "public/logo-192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "public/logo-512.png",
         "type": "image/png",
         "sizes": "512x512"
       }
     ],
-    "start_url": ".",
+    "start_url": "/",
     "display": "standalone",
     "theme_color": "#2c2c2c",
     "background_color": "#ffffff"

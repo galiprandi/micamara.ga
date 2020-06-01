@@ -171,27 +171,4 @@
   <Aside active="false" />
   <Footer />
   {/if}
-
-  <script>
-    /**
-     * ! Install service worker
-     * */
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", function () {
-        navigator.serviceWorker.register("./sw.js").then(
-          function (registration) {
-            // Registration was successful
-            console.info(
-              "ServiceWorker registration successful with scope: ",
-              registration.scope
-            );
-          },
-          function (err) {
-            // registration failed :(
-            console.error("ServiceWorker registration failed: ", err);
-          }
-        );
-      });
-    }
-  </script>
 </main>

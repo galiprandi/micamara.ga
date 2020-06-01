@@ -155,7 +155,7 @@
       <img src={imgPath + item.image} title="Click para ampliar" alt="" />
     {:else}
       <img
-        src="//imgs.micamara.ga/gadget/no-image.png"
+        src="images/no-image.png"
         title="Click para ampliar"
         alt="" />
     {/if}
