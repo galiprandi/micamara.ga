@@ -28,18 +28,23 @@
     padding: 10px 30px;
   }
   .floatContainer {
-    display: none;
-  }
-  .floatContainer.active {
-    display: flex;
+    position: fixed;
+    visibility: hidden;
+    opacity: 0;
+     display: flex;
     width: 100%;
     background: inherit;
     padding: 10px;
-    position: fixed;
     left: 0;
     bottom: 54px;
     height: 55px;
     justify-content: space-around;
+    transition: visibility 0s ease-in-out 200ms;
+  }
+  .floatContainer.active {
+    visibility: visible;
+    opacity: 1;
+
   }
   .floatContainer input {
     width: 100%;
