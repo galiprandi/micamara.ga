@@ -1,3 +1,35 @@
+<script>
+window.onload = (e) => { 
+    // Declare init HTML elements
+    const buttonAdd = document.querySelector('.add-button');
+
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Prevent Chrome 67 and earlier from automatically showing the prompt
+      e.preventDefault();
+      // Stash the event so it can be triggered later.
+      deferredPrompt = e;
+    });
+
+    // Add event click function for Add button
+    buttonAdd.addEventListener('click', (e) => {
+      // Show the prompt
+      deferredPrompt.prompt();
+      // Wait for the user to respond to the prompt
+      deferredPrompt.userChoice
+        .then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('User accepted the A2HS prompt');
+          } else {
+            console.log('User dismissed the A2HS prompt');
+          }
+          deferredPrompt = null;
+        });
+    });
+  }
+
+</script>
+
 <style>
   .searchBarContainer {
     display: flex;
@@ -20,7 +52,15 @@
     height: 36px;
     width: auto;
   }
-  #logo:hover {
+  #logo:hover,
+  .btn-icon {
+    stroke: var(--Color-3);
+  }
+  .btn-icon {
+    stroke: var(--color-2);
+  }
+  .btn-icon:hover {
+    stroke: var(--color-3);
     stroke: var(--Color-3);
   }
 </style>
@@ -87,9 +127,28 @@
     </a>
   </div>
   <div class="iconContainer">
-    <!-- <ion-icon
-      name="person-circle-outline"
-      title="Ingresa con tu usuario y contraseña"
-      size="large" /> -->
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="btn-icon add-button"
+      width="512"
+      height="512"
+      viewBox="0 0 512 512">
+      <title>Istalar App</title>
+      <path
+        d="M448,256c0-106-86-192-192-192S64,150,64,256s86,192,192,192S448,362,448,256Z"
+        style="fill:none;stroke-miterlimit:10;stroke-width:32px" />
+      <line
+        x1="256"
+        y1="176"
+        x2="256"
+        y2="336"
+        style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
+      <line
+        x1="336"
+        y1="256"
+        x2="176"
+        y2="256"
+        style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
+    </svg>
   </div>
 </div>
