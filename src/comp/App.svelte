@@ -25,7 +25,7 @@
   $: $Query, $Products, searchOnList();
 
   onMount(async () => {
-    $Products = await updateProducts($Products);
+    $Products = await updateProducts();
   });
 
   // ------------------------------------
@@ -43,12 +43,13 @@
   // ------------------------------------
   // Search $Query on list to be displayed
   // ------------------------------------
-  function searchOnList(toMatch) {
-    toMatch = toMatch || $Query;
+  function searchOnList() {
+    if (!$Products) return;
     let results;
-    if ($Query.length > 2 && $Products) {
+    // Search products match
+    if (!!$Query) {
       results = $Products.filter((item) => {
-        const regEx = new RegExp(toMatch, "gi");
+        const regEx = new RegExp($Query, "gi");
         return (
           item.name.match(regEx) ||
           item.brand.match(regEx) ||
@@ -57,20 +58,14 @@
           item.name.match(regEx)
         );
       });
-    } else if ($Products) {
       // Show shuffle default results
-      results = $Products
-        .sort(() => Math.random() - 0.5)
-        .slice(0, limitOfResultToShow);
-      results = sortObjetcByKey(results, "name");
-    }
-    if (results) {
-      $showProducts = results;
-      console.warn(
-        `Find ${results.length} products that match with: ${$Query}`
-      );
-    }
+    } else results = $Products.sort(() => Math.random() - 0.5);
+    results = sortObjetcByKey(results, "name"); // Order results
+    results = results.slice(0, limitOfResultToShow); // Cut results
+    $showProducts = results;
+    console.info(`Listing: ${$showProducts.length}  products.`);
   }
+
   // ------------------------------------
   // Get JSON from Google
   // ------------------------------------
@@ -168,7 +163,7 @@
   <Header />
   <ProductList />
   {#if $showProducts}
-  <Aside active="false" />
-  <Footer />
+    <Aside active="false" />
+    <Footer />
   {/if}
 </main>
