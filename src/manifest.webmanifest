@@ -1,7 +1,12 @@
 {
     "short_name": "Gadget",
     "name": "Gadget",
-    "lang": "es-AR", 
+    "description": "Venta y reparación de queipamiento para fotógrafos",
+    "lang": "es-AR",
+    "start_url": "/",
+    "display": "standalone",
+    "theme_color": "#2c2c2c",
+    "background_color": "#ffe66d",
     "icons": [
       {
         "src": "public/favicon.ico",
@@ -23,9 +28,5 @@
         "type": "image/png",
         "sizes": "512x512"
       }
-    ],
-    "start_url": "/",
-    "display": "standalone",
-    "theme_color": "#2c2c2c",
-    "background_color": "#ffe66d"
+    ]
   }

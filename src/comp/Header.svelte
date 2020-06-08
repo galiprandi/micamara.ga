@@ -1,33 +1,29 @@
 <script>
-window.onload = (e) => { 
-    // Declare init HTML elements
-    const buttonAdd = document.querySelector('.add-button');
+  import { onMount } from "svelte";
 
+  onMount(async () => {
+    // Install App Function
     let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
-      // Prevent Chrome 67 and earlier from automatically showing the prompt
+    const addBtn = document.querySelector(".add-button");
+    addBtn.style.display = "none";
+    window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
-      // Stash the event so it can be triggered later.
       deferredPrompt = e;
-    });
-
-    // Add event click function for Add button
-    buttonAdd.addEventListener('click', (e) => {
-      // Show the prompt
-      deferredPrompt.prompt();
-      // Wait for the user to respond to the prompt
-      deferredPrompt.userChoice
-        .then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') {
-            console.log('User accepted the A2HS prompt');
+      addBtn.style.display = "block";
+      addBtn.addEventListener("click", (e) => {
+        addBtn.style.display = "none";
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === "accepted") {
+            console.log("User accepted the A2HS prompt");
           } else {
-            console.log('User dismissed the A2HS prompt');
+            console.log("User dismissed the A2HS prompt");
           }
           deferredPrompt = null;
         });
+      });
     });
-  }
-
+  });
 </script>
 
 <style>
@@ -128,12 +124,13 @@ window.onload = (e) => {
   </div>
   <div class="iconContainer">
     <svg
+      id="add-button"
       xmlns="http://www.w3.org/2000/svg"
       class="btn-icon add-button"
       width="512"
       height="512"
       viewBox="0 0 512 512">
-      <title>Istalar App</title>
+      <title>Instalar Aplicación</title>
       <path
         d="M448,256c0-106-86-192-192-192S64,150,64,256s86,192,192,192S448,362,448,256Z"
         style="fill:none;stroke-miterlimit:10;stroke-width:32px" />
