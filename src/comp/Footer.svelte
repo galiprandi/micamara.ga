@@ -4,7 +4,7 @@
   import { stop_propagation } from "svelte/internal";
 
   let active;
-  let action;
+  let action = "search";
 
   function floatContainer(el) {
     active = !active;
@@ -31,7 +31,7 @@
     position: fixed;
     visibility: hidden;
     opacity: 0;
-     display: flex;
+    display: flex;
     width: 100%;
     background: inherit;
     padding: 10px;
@@ -44,7 +44,6 @@
   .floatContainer.active {
     visibility: visible;
     opacity: 1;
-
   }
   .floatContainer input {
     width: 100%;
