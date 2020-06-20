@@ -1,6 +1,6 @@
 <script>
   import { showProducts } from "../js/stores.js";
-  import Card from "./Card.svelte";
+  import Card from "./Card-2.svelte";
   let listType = "";
 </script>
 
@@ -11,6 +11,7 @@
     grid-gap: 3em;
     justify-items: center;
     padding: 1em 1em 10em 1em;
+    background-color: rgba(0, 0, 0, 0.1);
   }
 
   @media screen and (min-width: 1000px) {

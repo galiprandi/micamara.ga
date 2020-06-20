@@ -1,0 +1,147 @@
+<script>
+  import { Query } from "../js/stores.js";
+  import { select_multiple_value } from "svelte/internal";
+  const imgPath = "/products_images/";
+  let active = false;
+  export let item;
+
+  function cardClick(id) {
+    const card = document.getElementById(id);
+    card.classList.toggle("active");
+  }
+
+  function copyItemToClip(e) {
+    const el = e.target;
+    let text = el.innerText + " " + el.nextElementSibling.innerText;
+    const q = new RegExp(/()( 12.*)/);
+    text = text.replace(q, "");
+    copyToClipboard(text);
+  }
+
+  function copyToClipboard(text) {
+    let el = document.createElement("textarea");
+    el.value = text;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand("copy");
+    document.body.removeChild(el);
+  }
+</script>
+
+<style>
+  .card {
+    border-radius: 2px;
+    padding: 0.5rem;
+    background-color: white;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  }
+
+  .card-image {
+    display: flex;
+    place-content: center;
+  }
+  .card-image img {
+    max-width: 500px;
+    width: 75%;
+    max-width: 500px;
+  }
+
+  .card-body {
+    font-size: 14px;
+    line-height: 1.5rem;
+    text-align: center;
+  }
+
+  .card-body > * {
+    margin-top: 1rem;
+  }
+
+  .card-body h1 {
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+  }
+  .card-body h1 > span {
+    margin-left: 0.5rem;
+    font-size: 14px;
+  }
+  .card-flag {
+    display: block;
+    text-transform: uppercase;
+    color: var(--color-2);
+    font-weight: 500;
+  }
+  .outline {
+    all: unset;
+    margin: 0 0.5rem;
+  }
+
+  .outline:hover {
+    color: var(--Color-3);
+  }
+  .card-description {
+    display: none;
+    padding: 1rem 0 5rem 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+  }
+  /* ============== .acive ======================= */
+  .card.active {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    box-shadow: none;
+    bottom: 0;
+    overflow: auto;
+    border-top: 1rem solid var(--color-1);
+  }
+  .card.active .outline {
+    display: none;
+  }
+  .card.active .card-description {
+    display: block;
+  }
+</style>
+
+<div
+  on:click={(e) => cardClick(item.id)}
+  class="card"
+  class:outStock={item.stock < 1}
+  class:active
+  id={item.id}>
+  <div class="card-image">
+    <img
+      src={imgPath + item.image}
+      alt={item.name}
+      loading="lazy"
+      title="Click para ampliar o cerrar"
+      class="image" />
+  </div>
+  <div class="card-body">
+    <h1 on:click|stopPropagation={(e) => copyItemToClip(e)} class="card-title">
+      {item.name}
+    </h1>
+    <h1 class="card-price">
+      {item.price}
+      {#if item.feeValue}
+        <span class="fee">{item.feeAmount} cuotas de {item.feeValue}</span>
+      {/if}
+    </h1>
+    {#if item.stock > 0}
+      <span class="card-flag in-stock">entrega inmediata</span>
+    {/if}
+    <button
+      on:click|stopPropagation={() => ($Query = item.brand)}
+      class="outline">
+      {item.brand}
+    </button>
+    <button
+      on:click|stopPropagation={() => ($Query = item.productType)}
+      class="outline">
+      {item.productType}
+    </button>
+    <div class="card-description">
+      {@html item.description}
+    </div>
+  </div>
+</div>
