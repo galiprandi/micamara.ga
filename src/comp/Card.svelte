@@ -7,6 +7,14 @@
 
   function cardClick(id) {
     const card = document.getElementById(id);
+    if (location.hash) {
+      location.hash = "";
+      card.classList.remove("active");
+      return;
+    }
+
+    const name = card.dataset.name;
+    if (name) location.hash = name;
     card.classList.toggle("active");
   }
 
@@ -113,6 +121,7 @@
   class="card"
   class:outStock={item.stock < 1}
   class:active
+  data-name={item.name.replace(/( )/g, '_')}
   title="Click para ampliar o cerrar"
   id={item.id}>
   <div class="card-image">

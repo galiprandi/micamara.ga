@@ -23,16 +23,33 @@
     if (icon.getAttribute("action")) action = icon.getAttribute("action");
   }
 
-  async function btnShare(el) {
+  async function btnShare() {
     if (navigator.share) {
       await navigator.share({
-        title: "Gadget",
-        url: window.location.href,
+        title: document.title,
+        url: window.location,
       });
     } else {
-      floatContainer(el);
+      //floatContainer(el);
+      action = "share";
+      active = !active;
     }
   }
+  const iconClose = `
+  <title>Cerrar</title>
+          <line
+            x1="430"
+            y1="430"
+            x2="144"
+            y2="144"
+            style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
+          <line
+            x1="430"
+            y1="144"
+            x2="144"
+            y2="430"
+            style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
+  `;
 </script>
 
 <style>
@@ -141,7 +158,7 @@
         <div class="shareButtons">
           <!-- Share on Facebook -->
           <a
-            href="http://www.facebook.com/sharer.php?u=http://micamara.ga"
+            href="http://www.facebook.com/sharer.php?u={location.href}"
             target="_blank">
             <svg
               class="btn-icon filled"
@@ -163,7 +180,7 @@
 
           <!-- Share on Whatsapp -->
           <a
-            href="whatsapp://send?text=http://micamara.ga"
+            href="whatsapp://send?text={location.href}"
             data-action="share/whatsapp/share">
             <svg
               class="btn-icon filled"
@@ -180,7 +197,7 @@
           <!-- Share on Whatsapp -->
           <!-- Share on Twitter -->
           <a
-            href="https://twitter.com/share?url=http://micamara.ga"
+            href="https://twitter.com/share?url={location.href}"
             target="_blank">
             <svg
               class="btn-icon filled"
@@ -211,34 +228,50 @@
         width="512"
         height="512"
         viewBox="0 0 512 512">
-        <title>Compartir</title>
-        <circle
-          cx="128"
-          cy="256"
-          r="48"
-          style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
-        <circle
-          cx="384"
-          cy="112"
-          r="48"
-          style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
-        <circle
-          cx="384"
-          cy="400"
-          r="48"
-          style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
-        <line
-          x1="169.83"
-          y1="279.53"
-          x2="342.17"
-          y2="376.47"
-          style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
-        <line
-          x1="342.17"
-          y1="135.53"
-          x2="169.83"
-          y2="232.47"
-          style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
+        {#if active && action === 'share'}
+          <title>Cerrar</title>
+          <line
+            x1="430"
+            y1="430"
+            x2="144"
+            y2="144"
+            style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
+          <line
+            x1="430"
+            y1="144"
+            x2="144"
+            y2="430"
+            style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
+        {:else}
+          <title>Compartir</title>
+          <circle
+            cx="128"
+            cy="256"
+            r="48"
+            style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
+          <circle
+            cx="384"
+            cy="112"
+            r="48"
+            style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
+          <circle
+            cx="384"
+            cy="400"
+            r="48"
+            style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
+          <line
+            x1="169.83"
+            y1="279.53"
+            x2="342.17"
+            y2="376.47"
+            style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
+          <line
+            x1="342.17"
+            y1="135.53"
+            x2="169.83"
+            y2="232.47"
+            style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
+        {/if}
       </svg>
     </div>
     <!-- / Share Button -->
@@ -280,27 +313,45 @@
       </a>
     </div>
     <!-- / Messenger Button -->
-
     <!-- Search Button -->
     <div>
       <svg
-        on:click|capture={floatContainer}
+        on:click={() => {
+          active = !active;
+          action = 'search';
+        }}
         action="search"
         class="btn-icon"
         xmlns="http://www.w3.org/2000/svg"
         width="512"
         height="512"
         viewBox="0 0 512 512">
-        <title>Buscar</title>
-        <path
-          d="M221.09,64A157.09,157.09,0,1,0,378.18,221.09,157.1,157.1,0,0,0,221.09,64Z"
-          style="fill:none;;stroke-miterlimit:10;stroke-width:32px" />
-        <line
-          x1="338.29"
-          y1="338.29"
-          x2="448"
-          y2="448"
-          style="fill:none;;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px" />
+        {#if active && action === 'search'}
+          <title>Cerrar Menú</title>
+          <line
+            x1="430"
+            y1="430"
+            x2="144"
+            y2="144"
+            style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
+          <line
+            x1="430"
+            y1="144"
+            x2="144"
+            y2="430"
+            style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
+        {:else}
+          <title>Buscar</title>
+          <path
+            d="M221.09,64A157.09,157.09,0,1,0,378.18,221.09,157.1,157.1,0,0,0,221.09,64Z"
+            style="fill:none;;stroke-miterlimit:10;stroke-width:32px" />
+          <line
+            x1="338.29"
+            y1="338.29"
+            x2="448"
+            y2="448"
+            style="fill:none;;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px" />
+        {/if}
       </svg>
 
     </div>

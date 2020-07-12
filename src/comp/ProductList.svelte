@@ -1,5 +1,5 @@
 <script>
-  export let PRODUCTS_SHOWED, QUERY, ONLINE;
+  export let PRODUCTS, PRODUCTS_SHOWED, QUERY, ONLINE;
 
   import Card from "./Card.svelte";
   let listType = "";
@@ -93,7 +93,6 @@
 </style>
 
 <section>
-
   {#if PRODUCTS_SHOWED}
     {#each PRODUCTS_SHOWED as item}
       <Card {item} {ONLINE} bind:QUERY />

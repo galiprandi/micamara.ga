@@ -43,6 +43,8 @@
       CATEGORIES = getFromLocal("Categories");
       PRODUCTS_TYPES = getFromLocal("ProductsTypes");
       BRANDS = getFromLocal("Brands");
+      if (location.hash)
+        QUERY = decodeURI(location.hash.replace(/(_)/g, " ").slice(1));
 
       // FROM NETWORK
       PRODUCTS = await updateProducts();
@@ -71,6 +73,8 @@
     if (!PRODUCTS) return;
     let results;
     if (!!str) {
+      location.hash = str.replace(/( )/g, "_");
+
       // Search products by str
       str = str.trim();
       setToLocal("Query", str);
@@ -233,7 +237,7 @@
   <Header />
   {#if PRODUCTS_SHOWED}
     {#if PRODUCTS_SHOWED.length}
-      <ProductList {PRODUCTS_SHOWED} {ONLINE} bind:QUERY />
+      <ProductList {PRODUCTS} {PRODUCTS_SHOWED} {ONLINE} bind:QUERY />
     {:else}
       <div class="noProducts">
         <h2>No hay productos con esa descripción :(</h2>
