@@ -50,7 +50,9 @@
     place-content: center;
   }
   .card-image img {
-    max-width: 100%;
+    width: 95%;
+    max-width: 500px;
+    height: auto;
   }
   /*
   .card-image img {

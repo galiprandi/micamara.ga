@@ -153,6 +153,9 @@
         id: { $t: link },
         updated: { $t: updated },
       } = item;
+
+      name = name.replace(/([()])/g, "");
+
       ofert = !!ofert;
       active = !!active;
       activeForWeb = !!activeForWeb;
@@ -183,7 +186,7 @@
       return accu;
     }, []); // Reduce
 
-    //  ONLINE = true;
+    ONLINE = true;
 
     CATEGORIES = [...new Set(categories)].sort();
     setToLocal("Categories", CATEGORIES);
@@ -243,7 +246,7 @@
         <h2>No hay productos con esa descripción :(</h2>
       </div>
     {/if}
-    <Aside active="false" {PRODUCTS_TYPES} {BRANDS} bind:QUERY />
+    <Aside {PRODUCTS_TYPES} {BRANDS} bind:QUERY />
     <Footer bind:QUERY bind:LAST_SEARCH />
   {/if}
 </main>

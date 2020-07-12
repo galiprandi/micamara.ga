@@ -1,5 +1,5 @@
 <script context="module">
-  let active;
+  let active = false;
   export const iconClose = `<title>Cerrar Menú</title>
               <line x1="430" y1="430" x2="144" y2="144" style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"/>
               <line x1="430" y1="144" x2="144" y2="430" style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"/>`;
@@ -40,19 +40,19 @@
     position: fixed;
     right: -100%;
     top: 0;
-    height: 100vh;
-    overflow: scroll;
-    background: var(--color-2);
+    bottom: 0;
+    width: 300px;
+    background-color: var(--color-2);
     color: var(--color-4);
     line-height: 2.5;
     text-align: right;
-    transition: 0.4s all cubic-bezier(1, 0, 0, 1);
+    overflow: scroll;
     box-shadow: -1px 0 5px 1px rgba(10, 10, 10, 0.6);
+    transition: 0.4s all cubic-bezier(1, 0, 0, 1);
   }
 
   aside.active {
     right: 0;
-    min-width: 250px;
   }
 
   aside nav label {
@@ -60,12 +60,15 @@
     padding: 0 15px;
   }
   ul {
+    display: block;
     margin-bottom: 100px;
+    widows: 100%;
   }
   li {
-    padding: 0 15px 0 40px;
-    text-transform: capitalize;
+    display: block;
+    /* padding: 0 15px 0 40px; */
     cursor: pointer;
+    margin: 0 1rem;
   }
   li:hover {
     color: var(--color-2);
