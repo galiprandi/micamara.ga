@@ -42,10 +42,15 @@
     place-content: center;
   }
   .card-image img {
+    max-width: 100%;
+  }
+  /*
+  .card-image img {
     max-width: 500px;
     width: 75%;
     max-width: 500px;
   }
+*/
 
   .card-body {
     font-size: 14px;
@@ -82,7 +87,7 @@
   .card-description {
     display: none;
     padding: 1rem 0 5rem 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.3);
+    /* border-top: 1px solid rgba(0, 0, 0, 0.3); */
   }
   /* ============== .acive ======================= */
   .card.active {
@@ -108,25 +113,36 @@
   class="card"
   class:outStock={item.stock < 1}
   class:active
+  title="Click para ampliar o cerrar"
   id={item.id}>
   <div class="card-image">
-    <img
-      src={imgPath + item.image}
-      alt={item.name}
-      loading="lazy"
-      title="Click para ampliar o cerrar"
-      class="image" />
+    {#if item.image}
+      <img
+        src={imgPath + item.image}
+        alt={item.name}
+        loading="lazy"
+        class="image" />
+    {:else}
+      <img
+        src="//micamara.ga/images/no-image.png"
+        alt={item.name}
+        loading="lazy"
+        class="image" />
+    {/if}
+
   </div>
   <div class="card-body">
     <h1 class="card-title">{item.name}</h1>
-    <h1 class="card-price" on:click|stopPropagation={(e) => copyItemToClip(e)}>
-      {#if ONLINE}
+    {#if ONLINE}
+      <h1
+        class="card-price"
+        on:click|stopPropagation={(e) => copyItemToClip(e)}>
         {item.price}
         {#if item.feeValue}
           <span class="fee">{item.feeAmount} cuotas de {item.feeValue}</span>
         {/if}
-      {/if}
-    </h1>
+      </h1>
+    {/if}
     {#if item.stock > 0}
       <span class="card-flag in-stock">entrega inmediata</span>
     {/if}
