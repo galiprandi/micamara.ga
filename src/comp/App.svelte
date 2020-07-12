@@ -69,11 +69,11 @@
   // Get JSON from Google
   // ------------------------------------
   async function fechingData(url) {
-    console.time("Fething data time: ");
+    console.time("Fething data from database");
     try {
       const response = await fetch(url);
       const data = await response.json();
-      console.timeEnd("Fething data time: ");
+      console.timeEnd("Fething data from database");
       return data.feed.entry;
     } catch (error) {
       console.error(error);
