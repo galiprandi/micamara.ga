@@ -11,6 +11,7 @@
     const icon = el.target;
     if (icon.getAttribute("action")) action = icon.getAttribute("action");
   }
+
   async function btnShare(el) {
     if (navigator.share) {
       await navigator.share({
@@ -155,7 +156,7 @@
   <!-- Share Button -->
   <div>
     <svg
-      on:click|capture={floatContainer}
+      on:click|capture={btnShare}
       action="share"
       class="btn-icon"
       xmlns="http://www.w3.org/2000/svg"
@@ -235,7 +236,7 @@
   <!-- Search Button -->
   <div>
     <svg
-      on:click|capture={btnShare}
+      on:click|capture={floatContainer}
       action="search"
       class="btn-icon"
       xmlns="http://www.w3.org/2000/svg"
