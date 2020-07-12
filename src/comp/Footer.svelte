@@ -1,15 +1,26 @@
 <script>
-  import { Query } from "../js/stores.js";
   import { toggleMenu } from "./Aside.svelte";
-  import { stop_propagation } from "svelte/internal";
+
+  export let QUERY;
 
   let active;
   let action = "search";
 
   function floatContainer(el) {
+    console.log(action);
     active = !active;
     const icon = el.target;
     if (icon.getAttribute("action")) action = icon.getAttribute("action");
+  }
+  async function btnShare(el) {
+    if (navigator.share) {
+      await navigator.share({
+        title: "Gadget",
+        url: window.location.href,
+      });
+    } else {
+      floatContainer(el);
+    }
   }
 </script>
 
@@ -73,13 +84,15 @@
 <nav id="nav">
   <!-- Float container -->
   <div class:active class="floatContainer" id="floatContainer">
+
     <!-- input search -->
     {#if action == 'search'}
       <input
         on:focus={(e) => e.target.select()}
+        id="searchBox"
         type="searchBox"
-        bind:value={$Query}
-        placeholder="¿Qué necesita ?" />
+        bind:value={QUERY}
+        placeholder="¿ Qué necesita ?" />
       <!-- input search -->
     {:else if action == 'share'}
       <!-- Share on Facebook -->
@@ -103,6 +116,7 @@
         </svg>
       </a>
       <!-- Share on Facebook -->
+
       <!-- Share on Whatsapp -->
       <a
         href="whatsapp://send?text=http://micamara.ga"
@@ -218,10 +232,11 @@
     </a>
   </div>
   <!-- Messenger Button -->
+
   <!-- Search Button -->
   <div>
     <svg
-      on:click|capture={floatContainer}
+      on:click|capture={btnShare}
       action="search"
       class="btn-icon"
       xmlns="http://www.w3.org/2000/svg"

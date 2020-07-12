@@ -2,15 +2,6 @@
   console.clear();
   import { sortObjetcByKey } from "../js/t&u";
   import { onMount } from "svelte";
-  import {
-    Query,
-    showProducts,
-    Products,
-    ProductsTypes,
-    Categories,
-    Brands,
-    Menu,
-  } from "../js/stores.js";
 
   // Components imports
   import Header from "./Header.svelte";
@@ -18,14 +9,37 @@
   import Footer from "./Footer.svelte";
   import Aside from "./Aside.svelte";
 
+  let PRODUCTS,
+    PRODUCTS_SHOWED,
+    CATEGORIES,
+    PRODUCTS_TYPES,
+    BRANDS,
+    QUERY,
+    ONLINE = false;
+
   const limitOfResultToShow = 100;
   const urlOfData =
     "https://spreadsheets.google.com/feeds/list/1FjerBKgvNepZfQkPaUbd9DMy5-SMr-XxEKeNsZhcPM4/od6/public/values?alt=json";
 
-  $: $Query, $Products, searchOnList();
+  // $: $Query, $Products, searchOnList();
+
+  $: QUERY, searchOnList();
 
   onMount(async () => {
-    $Products = await updateProducts();
+    try {
+      // FROM LOCAL
+      QUERY = getFromLocal("Query");
+      PRODUCTS = getFromLocal("Products");
+      CATEGORIES = getFromLocal("Categories");
+      PRODUCTS_TYPES = getFromLocal("ProductsTypes");
+      BRANDS = getFromLocal("Brands");
+
+      // FROM NETWORK
+      PRODUCTS = await updateProducts();
+      searchOnList();
+    } catch (error) {
+      console.error(error);
+    }
   });
 
   // ------------------------------------
@@ -34,35 +48,42 @@
   async function updateProducts() {
     try {
       const data = await fechingData(urlOfData);
-      const dataparse = await parseData(data);
-      return dataparse;
+      return data;
     } catch (error) {
       console.error(error);
     }
   }
+
   // ------------------------------------
   // Search $Query on list to be displayed
   // ------------------------------------
-  function searchOnList() {
-    if (!$Products) return;
+  function searchOnList(str = QUERY) {
+    if (!PRODUCTS) return;
     let results;
-    // Search products match
-    if (!!$Query) {
-      results = $Products.filter((item) => {
-        const regEx = new RegExp($Query, "gi");
-        return (
-          item.name.match(regEx) ||
-          item.brand.match(regEx) ||
-          item.categorie.match(regEx) ||
-          item.productType.match(regEx)
-        );
+    if (!!str) {
+      // Search products by str
+      str = str.trim();
+      setToLocal("Query", str);
+      results = PRODUCTS.filter((item) => {
+        try {
+          const regEx = new RegExp(str, "gi");
+          return (
+            item.name.match(regEx) ||
+            item.brand.match(regEx) ||
+            item.categorie.match(regEx) ||
+            item.productType.match(regEx)
+          );
+        } catch (error) {
+          console.error(error);
+        }
       });
-      // Show shuffle default results
-    } else results = $Products.sort(() => Math.random() - 0.5);
+    }
+
+    // Show shuffle default results
+    else results = PRODUCTS.sort(() => Math.random() - 0.5);
     results = sortObjetcByKey(results, "name"); // Order results
-    results = results.slice(0, limitOfResultToShow); // Cut results
-    $showProducts = results;
-    console.info(`Listing: ${$showProducts.length}  products.`);
+    results = results.slice(0, limitOfResultToShow); // Cut results to limit
+    PRODUCTS_SHOWED = results;
   }
 
   // ------------------------------------
@@ -73,8 +94,8 @@
     try {
       const response = await fetch(url);
       const data = await response.json();
+      return parseData(data.feed.entry);
       console.timeEnd("Fething data from database");
-      return data.feed.entry;
     } catch (error) {
       console.error(error);
     }
@@ -83,11 +104,19 @@
   // ------------------------------------
   // Prepare and filter data
   // ------------------------------------
-  async function parseData(data) {
+  function parseData(data) {
     let categories = [];
     let productsTypes = [];
     let brands = [];
     let results = data.reduce((accu, item, i) => {
+      // Verifica Stock, Activo, Web
+      if (
+        item.gsx$act.$t !== "*" ||
+        item.gsx$web.$t !== "*" ||
+        item.gsx$stock.$t == ""
+      )
+        return accu;
+
       const id = i;
       let {
         gsx$producto: { $t: name },
@@ -129,40 +158,75 @@
         link,
         updated,
       };
-      if (active && activeForWeb && stock.trim() !== "") {
-        accu.push(toAdd);
-        categories.push(categorie);
-        productsTypes.push(productType);
-        brands.push(brand);
-      }
+
+      accu = [...accu, toAdd];
+      categories = [...categories, categorie];
+      productsTypes = [...productsTypes, productType];
+      brands = [...brands, brand];
       return accu;
     }, []); // Reduce
 
-    $Categories = [...new Set(categories)].sort();
+    ONLINE = true;
 
-    $ProductsTypes = [...new Set(productsTypes)].sort();
+    CATEGORIES = [...new Set(categories)].sort();
+    setToLocal("Categories", CATEGORIES);
 
-    $Brands = [...new Set(brands)].sort();
+    PRODUCTS_TYPES = [...new Set(productsTypes)].sort();
+    setToLocal("ProductsTypes", PRODUCTS_TYPES);
 
-    return (results = sortObjetcByKey(results, "name"));
+    BRANDS = [...new Set(brands)].sort();
+    setToLocal("Brands", BRANDS);
+
+    results = [...sortObjetcByKey(results, "name")];
+    setToLocal("Products", results);
+    return results;
+  }
+
+  function setToLocal(key, value) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function getFromLocal(key) {
+    try {
+      return JSON.parse(localStorage.getItem(key));
+    } catch (error) {
+      console.error(error);
+    }
   }
 </script>
 
 <style>
-  /* @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap"); */
   main {
-    /* font-family: "Montserrat", sans-serif; */
     height: 100vh;
     color: var(--color-5);
     font-size: 1em;
+  }
+  .noProducts {
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .noProducts h2 {
+    font-size: 1.5rem;
   }
 </style>
 
 <main>
   <Header />
-  <ProductList />
-  {#if $showProducts}
-    <Aside active="false" />
-    <Footer />
+  {#if PRODUCTS_SHOWED}
+    {#if PRODUCTS_SHOWED.length}
+      <ProductList {PRODUCTS_SHOWED} {ONLINE} bind:QUERY />
+    {:else}
+      <div class="noProducts">
+        <h2>No hay productos con esa descripción :(</h2>
+      </div>
+    {/if}
+    <Aside active="false" {PRODUCTS_TYPES} {BRANDS} bind:QUERY />
+    <Footer bind:QUERY />
   {/if}
 </main>

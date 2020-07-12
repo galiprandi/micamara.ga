@@ -18,8 +18,7 @@
 </script>
 
 <script>
-  import { Query, ProductsTypes, Brands, Config } from "../js/stores.js";
-  export let active;
+  export let active, PRODUCTS_TYPES, BRANDS, QUERY;
 </script>
 
 <style>
@@ -92,11 +91,11 @@
     <section>
       <div class="content content-1">
         <ul>
-          {#if $ProductsTypes}
-            {#each $ProductsTypes as item, i}
+          {#if PRODUCTS_TYPES}
+            {#each PRODUCTS_TYPES as item, i}
               <li
                 on:click={(e) => {
-                  $Query = item;
+                  QUERY = item;
                   toggleMenu();
                 }}>
                 {item}
@@ -107,11 +106,11 @@
       </div>
       <div class="content content-2">
         <ul>
-          {#if $Brands}
-            {#each $Brands as item, i}
+          {#if BRANDS}
+            {#each BRANDS as item, i}
               <li
                 on:click={(e) => {
-                  $Query = item;
+                  QUERY = item;
                   toggleMenu();
                 }}>
                 {item}

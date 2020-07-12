@@ -1,8 +1,9 @@
 /*
- * Update: 06-20-2020
+ * Update: 07-12-2020
  */
 
 // Instalación y pre carga
+
 var CACHE_NAME = "offline";
 var urlsToCache = ["/"];
 

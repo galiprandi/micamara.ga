@@ -1,6 +1,7 @@
 <script>
-  import { showProducts } from "../js/stores.js";
-  import Card from "./Card-2.svelte";
+  export let PRODUCTS_SHOWED, QUERY, ONLINE;
+
+  import Card from "./Card.svelte";
   let listType = "";
 </script>
 
@@ -93,9 +94,9 @@
 
 <section>
 
-  {#if $showProducts}
-    {#each $showProducts as item}
-      <Card {item} />
+  {#if PRODUCTS_SHOWED}
+    {#each PRODUCTS_SHOWED as item}
+      <Card {item} {ONLINE} bind:QUERY />
     {/each}
   {:else}
     <!-- Loading spiner -->
@@ -107,5 +108,6 @@
         <div />
       </div>
     </div>
+    <!-- Loading spiner -->
   {/if}
 </section>
