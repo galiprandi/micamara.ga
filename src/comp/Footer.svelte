@@ -7,7 +7,6 @@
   let action = "search";
 
   function floatContainer(el) {
-    console.log(action);
     active = !active;
     const icon = el.target;
     if (icon.getAttribute("action")) action = icon.getAttribute("action");

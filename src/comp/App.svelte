@@ -65,17 +65,19 @@
       str = str.trim();
       setToLocal("Query", str);
       results = PRODUCTS.filter((item) => {
+        let regEx = "";
         try {
-          const regEx = new RegExp(str, "gi");
-          return (
-            item.name.match(regEx) ||
-            item.brand.match(regEx) ||
-            item.categorie.match(regEx) ||
-            item.productType.match(regEx)
-          );
+          regEx = new RegExp(str, "gi");
         } catch (error) {
-          console.error(error);
+          // console.error(error);
+          return false;
         }
+        return (
+          item.name.match(regEx) ||
+          item.brand.match(regEx) ||
+          item.categorie.match(regEx) ||
+          item.productType.match(regEx)
+        );
       });
     }
 
