@@ -1,24 +1,38 @@
 <script context="module">
-  // Open ~ Close Menu
-  export const toggleMenu = (e) => {
-    const iconClose = `<title>Cerrar Menú</title>
+  let active;
+  export const iconClose = `<title>Cerrar Menú</title>
               <line x1="430" y1="430" x2="144" y2="144" style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"/>
               <line x1="430" y1="144" x2="144" y2="430" style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"/>`;
-    const iconMenu = `<title>Mostrar categorías y rubros</title>
+
+  const iconMenu = `<title>Mostrar categorías y rubros</title>
               <line x1="80" y1="146" x2="432" y2="146" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/>
               <line x1="80" y1="256" x2="432" y2="256" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/>
               <line x1="80" y1="366" x2="432" y2="366" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/>`;
 
-    const el = document.getElementById("asideMenu");
-    const icon = document.getElementById("iconClose");
-
-    let activeMenu = el.classList.toggle("active");
-    activeMenu ? (icon.innerHTML = iconClose) : (icon.innerHTML = iconMenu);
-  };
+  export function toggleMenu() {
+    active ? closeMenu() : openMenu();
+  }
+  export function openMenu() {
+    active = true;
+    document.getElementById("asideMenu").classList.add("active");
+    document.getElementById("iconClose").innerHTML = iconClose;
+  }
+  export function closeMenu() {
+    active = false;
+    document.getElementById("asideMenu").classList.remove("active");
+    document.getElementById("iconClose").innerHTML = iconMenu;
+  }
 </script>
 
 <script>
-  export let active, PRODUCTS_TYPES, BRANDS, QUERY;
+  import { saveSearch } from "./App.svelte";
+  export let PRODUCTS_TYPES, BRANDS, QUERY;
+
+  function newSearch(query) {
+    QUERY = query;
+    saveSearch(query);
+    closeMenu();
+  }
 </script>
 
 <style>
@@ -93,13 +107,7 @@
         <ul>
           {#if PRODUCTS_TYPES}
             {#each PRODUCTS_TYPES as item, i}
-              <li
-                on:click={(e) => {
-                  QUERY = item;
-                  toggleMenu();
-                }}>
-                {item}
-              </li>
+              <li on:click={() => newSearch(item)}>{item}</li>
             {/each}
           {/if}
         </ul>
@@ -108,13 +116,7 @@
         <ul>
           {#if BRANDS}
             {#each BRANDS as item, i}
-              <li
-                on:click={(e) => {
-                  QUERY = item;
-                  toggleMenu();
-                }}>
-                {item}
-              </li>
+              <li on:click={() => newSearch(item)}>{item}</li>
             {/each}
           {/if}
         </ul>

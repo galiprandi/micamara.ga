@@ -6,7 +6,7 @@ const app = new App({ target: document.body });
 
 export default app;
 
-if ("serviceWorker" in navigator) {
+if ("serviceWorker" in navigator && window.location.host !== "0.0.0.0:8080") {
   window.addEventListener("load", function () {
     navigator.serviceWorker.register("../service-worker.js").then(
       function (registration) {},
@@ -15,4 +15,4 @@ if ("serviceWorker" in navigator) {
       }
     );
   });
-}
+} else console.warn("Service Worker unavailable !");

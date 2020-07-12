@@ -1,3 +1,12 @@
+<script context="module">
+  export function saveSearch(str) {
+    let store = getFromLocal("lastSearch");
+    if (!store) store = [];
+    store = [...new Set([str, ...store])].slice(0, 7);
+    setToLocal("lastSearch", store);
+  }
+</script>
+
 <script>
   console.clear();
   import { sortObjetcByKey } from "../js/t&u";
@@ -9,12 +18,13 @@
   import Footer from "./Footer.svelte";
   import Aside from "./Aside.svelte";
 
-  let PRODUCTS,
+  let QUERY,
+    PRODUCTS,
     PRODUCTS_SHOWED,
+    LAST_SEARCH,
     CATEGORIES,
     PRODUCTS_TYPES,
     BRANDS,
-    QUERY,
     ONLINE = false;
 
   const limitOfResultToShow = 100;
@@ -86,6 +96,7 @@
     results = sortObjetcByKey(results, "name"); // Order results
     results = results.slice(0, limitOfResultToShow); // Cut results to limit
     PRODUCTS_SHOWED = results;
+    LAST_SEARCH = getFromLocal("lastSearch");
   }
 
   // ------------------------------------
@@ -168,7 +179,7 @@
       return accu;
     }, []); // Reduce
 
-    ONLINE = true;
+    //  ONLINE = true;
 
     CATEGORIES = [...new Set(categories)].sort();
     setToLocal("Categories", CATEGORIES);
@@ -229,6 +240,6 @@
       </div>
     {/if}
     <Aside active="false" {PRODUCTS_TYPES} {BRANDS} bind:QUERY />
-    <Footer bind:QUERY />
+    <Footer bind:QUERY bind:LAST_SEARCH />
   {/if}
 </main>
