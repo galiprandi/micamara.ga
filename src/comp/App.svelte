@@ -54,8 +54,7 @@
           item.name.match(regEx) ||
           item.brand.match(regEx) ||
           item.categorie.match(regEx) ||
-          item.productType.match(regEx) ||
-          item.name.match(regEx)
+          item.productType.match(regEx)
         );
       });
       // Show shuffle default results
