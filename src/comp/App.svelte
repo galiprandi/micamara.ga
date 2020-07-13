@@ -257,9 +257,9 @@
 <main>
   <Header />
 
-  {#if (location.host = '0.0.0.0:8080')}
+  <!-- {#if (location.host = '0.0.0.0:8080')}
     <Icon iconName="close" title="Click" stroke="orangered" fill="orangered" />
-  {/if}
+  {/if} -->
 
   {#if PRODUCTS_SHOWED}
     {#if PRODUCTS_SHOWED.length}
