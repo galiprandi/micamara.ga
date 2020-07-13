@@ -154,8 +154,6 @@
         updated: { $t: updated },
       } = item;
 
-      name = name.replace(/([()])/g, "");
-
       ofert = !!ofert;
       active = !!active;
       activeForWeb = !!activeForWeb;
@@ -180,9 +178,9 @@
       };
 
       accu = [...accu, toAdd];
-      categories = [...categories, categorie];
-      productsTypes = [...productsTypes, productType];
-      brands = [...brands, brand];
+      categories = [...categories, categorie.capitalize()];
+      productsTypes = [...productsTypes, productType.capitalize()];
+      brands = [...brands, brand.capitalize()];
       return accu;
     }, []); // Reduce
 
@@ -217,6 +215,25 @@
       console.error(error);
     }
   }
+
+  /**
+   * * Capitalize the first letter of each word of a given string
+   * * Usage: 'capItalezE aLl fIrSt leTTers'.capitalize()
+   */
+  String.prototype.capitalize = function () {
+    try {
+      return this.split(" ")
+        .filter((value) => value)
+        .reduce(
+          (text, word) =>
+            text + " " + word[0].toUpperCase() + word.substr(1).toLowerCase(),
+          ""
+        ); // Reduce
+    } catch (error) {
+      console.info(`Error: '${this}'.capitalize()'`);
+      return this;
+    }
+  };
 </script>
 
 <style>
