@@ -29,7 +29,7 @@
   export let PRODUCTS_TYPES, BRANDS, QUERY;
 
   function newSearch(query) {
-    QUERY = query;
+    QUERY = query.trim();
     saveSearch(query);
     closeMenu();
   }
