@@ -40,6 +40,7 @@
 
 <style>
   .card {
+    height: min-content;
     border-radius: 2px;
     padding: 0.5rem;
     background-color: white;
@@ -102,6 +103,7 @@
     display: none;
     padding: 1rem 0 5rem 0;
   }
+
   /* ============== .acive ======================= */
   .card.active {
     position: fixed;

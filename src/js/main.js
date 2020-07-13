@@ -6,7 +6,10 @@ const app = new App({ target: document.body });
 
 export default app;
 
-if ("serviceWorker" in navigator && window.location.host !== "0.0.0.0:8080") {
+if (
+  "serviceWorker" in navigator &&
+  window.location.host !== "192.168.1.50:8080"
+) {
   window.addEventListener("load", function () {
     navigator.serviceWorker.register("../service-worker.js").then(
       function (registration) {},

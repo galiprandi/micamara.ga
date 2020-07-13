@@ -8,7 +8,7 @@
     "Flashes",
     "Nikon",
     "Canon",
-    "Gogox",
+    "Godox",
     "Zhiyun-tech",
     "Usados Seleccionados",
   ];

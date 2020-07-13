@@ -32,7 +32,6 @@
   const urlOfData =
     "https://spreadsheets.google.com/feeds/list/1FjerBKgvNepZfQkPaUbd9DMy5-SMr-XxEKeNsZhcPM4/od6/public/values?alt=json";
 
-
   $: QUERY, searchOnList();
 
   onMount(async () => {
@@ -74,7 +73,6 @@
     let results;
     if (!!str) {
       location.hash = str.replace(/( )/g, "_");
-
       // Search products by str
       str = str.trim();
       setToLocal("Query", str);
@@ -93,11 +91,14 @@
           item.productType.match(regEx)
         );
       });
+      results = sortObjetcByKey(results, "name"); // Order results
     }
 
     // Show shuffle default results
-    else results = PRODUCTS.sort(() => Math.random() - 0.5);
-    results = sortObjetcByKey(results, "name"); // Order results
+    else {
+      console.log("shufle");
+      results = PRODUCTS.sort(() => Math.random() - 0.5);
+    }
     results = results.slice(0, limitOfResultToShow); // Cut results to limit
     PRODUCTS_SHOWED = results;
     LAST_SEARCH = getFromLocal("lastSearch");
@@ -107,12 +108,12 @@
   // Get JSON from Google
   // ------------------------------------
   async function fechingData(url) {
-    console.time("Fething data from database");
     try {
+      console.time("Fething data from database");
       const response = await fetch(url);
       const data = await response.json();
-      return parseData(data.feed.entry);
       console.timeEnd("Fething data from database");
+      return parseData(data.feed.entry);
     } catch (error) {
       console.error(error);
     }

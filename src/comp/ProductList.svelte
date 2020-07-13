@@ -13,6 +13,7 @@
     justify-items: center;
     padding: 1em 1em 10em 1em;
     background-color: rgba(0, 0, 0, 0.1);
+    min-height: 100%;
   }
 
   @media screen and (min-width: 1000px) {
@@ -92,7 +93,7 @@
   }
 </style>
 
-<section>
+<section class="products-list">
   {#if PRODUCTS_SHOWED}
     {#each PRODUCTS_SHOWED as item}
       <Card {item} {ONLINE} bind:QUERY />
