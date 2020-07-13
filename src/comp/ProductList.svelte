@@ -1,5 +1,5 @@
 <script>
-  export let PRODUCTS, PRODUCTS_SHOWED, QUERY, ONLINE;
+  export let PRODUCTS_SHOWED, QUERY, ONLINE;
 
   import Card from "./Card.svelte";
   let listType = "";

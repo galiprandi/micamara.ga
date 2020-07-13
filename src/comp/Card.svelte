@@ -20,14 +20,6 @@
     card.classList.toggle("active");
   }
 
-  function copyItemToClip(e) {
-    const el = e.target;
-    let text = el.previousElementSibling.textContent + " " + el.textContent;
-    const q = new RegExp(/()( 12.*)/);
-    text = text.replace(q, "");
-    copyToClipboard(text);
-  }
-
   function copyToClipboard(text) {
     let el = document.createElement("textarea");
     el.value = text;
@@ -90,15 +82,6 @@
   .outline:hover {
     color: var(--Color-3);
   }
-  .btn-icon.share {
-    stroke: var(--color-2);
-    /* margin: auto; */
-    width: 25px;
-    height: 25px;
-  }
-  .btn-icon.share:hover {
-    stroke: var(--Color-3);
-  }
   .card-description {
     display: none;
     padding: 1rem 0 5rem 0;
@@ -151,7 +134,7 @@
     {#if ONLINE}
       <h1
         class="card-price"
-        on:click|stopPropagation={(e) => copyItemToClip(e)}>
+        on:click|stopPropagation={() => copyToClipboard(`${item.name} ${item.price}`)}>
         {item.price}
         {#if item.feeValue}
           <span class="fee">{item.feeAmount} cuotas de {item.feeValue}</span>

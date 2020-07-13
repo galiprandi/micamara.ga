@@ -263,7 +263,7 @@
 
   {#if PRODUCTS_SHOWED}
     {#if PRODUCTS_SHOWED.length}
-      <ProductList {PRODUCTS} {PRODUCTS_SHOWED} {ONLINE} bind:QUERY />
+      <ProductList {PRODUCTS_SHOWED} {ONLINE} bind:QUERY />
     {:else}
       <div class="noProducts">
         <h2>No hay productos con esa descripción :(</h2>
