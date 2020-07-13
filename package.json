@@ -25,9 +25,5 @@
     "staticPath": "static_asset",
     "watcherGlob": "**"
   },
-  "dependencies": {
-    "workbox-expiration": "^5.1.3",
-    "workbox-routing": "^5.1.3",
-    "workbox-strategies": "^5.1.3"
-  }
+  "dependencies": {}
 }
