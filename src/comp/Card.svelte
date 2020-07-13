@@ -3,6 +3,8 @@
 
   let active = false;
 
+  const isShare = navigator.share;
+
   export let QUERY, ONLINE, item;
 
   function cardClick(id) {
@@ -39,7 +41,8 @@
     try {
       await navigator.share(shareData);
     } catch (err) {
-      resultPara.textContent = "Error: " + err;
+      console.error("Error: " + err);
+      alert(err);
     }
   }
 </script>
@@ -63,14 +66,6 @@
     height: auto;
   }
 
-  .card-image {
-    position: relative;
-  }
-  .card-image > svg {
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
   .card-body {
     font-size: 14px;
     line-height: 1.5rem;
@@ -102,6 +97,15 @@
 
   .outline:hover {
     color: var(--Color-3);
+  }
+  .btn-icon.share {
+    stroke: var(--color-2);
+    /* margin: auto; */
+    width: 25px;
+    height: 25px;
+  }
+  .btn-icon.share:hover {
+    stroke: var(--Color-3);
   }
   .card-description {
     display: none;
@@ -149,15 +153,40 @@
         loading="lazy"
         class="image" />
     {/if}
+  </div>
+  <div class="card-body">
+    <h1 class="card-title">{item.name}</h1>
+    {#if ONLINE}
+      <h1
+        class="card-price"
+        on:click|stopPropagation={(e) => copyItemToClip(e)}>
+        {item.price}
+        {#if item.feeValue}
+          <span class="fee">{item.feeAmount} cuotas de {item.feeValue}</span>
+        {/if}
+      </h1>
+    {/if}
+    {#if item.stock > 0}
+      <span class="card-flag in-stock">entrega inmediata</span>
+    {/if}
+    <button
+      on:click|stopPropagation={() => (QUERY = item.brand)}
+      class="outline">
+      {item.brand}
+    </button>
+    <button
+      on:click|stopPropagation={() => (QUERY = item.productType)}
+      class="outline">
+      {item.productType}
+    </button>
     <!-- Icon Share -->
     <svg
-      on:click={(e) => shareItem(e, {
+      on:click|preventDefault={(e) => shareItem(e, {
           title: item.name,
           text: `${item.name} ${item.price}`,
           url: `${location.host}/#${item.name}`,
         })}
-      action="share"
-      class="btn-icon svelte-egdb0e"
+      class="btn-icon share"
       xmlns="http://www.w3.org/2000/svg"
       width="512"
       height="512"
@@ -202,32 +231,6 @@
         class="svelte-egdb0e" />
     </svg>
     <!-- / Icon Share -->
-  </div>
-  <div class="card-body">
-    <h1 class="card-title">{item.name}</h1>
-    {#if ONLINE}
-      <h1
-        class="card-price"
-        on:click|stopPropagation={(e) => copyItemToClip(e)}>
-        {item.price}
-        {#if item.feeValue}
-          <span class="fee">{item.feeAmount} cuotas de {item.feeValue}</span>
-        {/if}
-      </h1>
-    {/if}
-    {#if item.stock > 0}
-      <span class="card-flag in-stock">entrega inmediata</span>
-    {/if}
-    <button
-      on:click|stopPropagation={() => (QUERY = item.brand)}
-      class="outline">
-      {item.brand}
-    </button>
-    <button
-      on:click|stopPropagation={() => (QUERY = item.productType)}
-      class="outline">
-      {item.productType}
-    </button>
     <div class="card-description">
       {@html item.description}
     </div>
