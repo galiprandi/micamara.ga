@@ -36,15 +36,6 @@
     document.execCommand("copy");
     document.body.removeChild(el);
   }
-  async function shareItem(event, shareData) {
-    event.preventDefault();
-    try {
-      await navigator.share(shareData);
-    } catch (err) {
-      console.error("Error: " + err);
-      alert(err);
-    }
-  }
 </script>
 
 <style>
@@ -110,7 +101,6 @@
   .card-description {
     display: none;
     padding: 1rem 0 5rem 0;
-    /* border-top: 1px solid rgba(0, 0, 0, 0.3); */
   }
   /* ============== .acive ======================= */
   .card.active {
@@ -179,58 +169,6 @@
       class="outline">
       {item.productType}
     </button>
-    <!-- Icon Share -->
-    <svg
-      on:click|preventDefault={(e) => shareItem(e, {
-          title: item.name,
-          text: `${item.name} ${item.price}`,
-          url: `${location.host}/#${item.name}`,
-        })}
-      class="btn-icon share"
-      xmlns="http://www.w3.org/2000/svg"
-      width="512"
-      height="512"
-      viewBox="0 0 512 512">
-      <title class="svelte-egdb0e">Compartir</title>
-      <circle
-        cx="128"
-        cy="256"
-        r="48"
-        style="fill: none; stroke-linecap: round; stroke-linejoin: round;
-        stroke-width: 32px;"
-        class="svelte-egdb0e" />
-      <circle
-        cx="384"
-        cy="112"
-        r="48"
-        style="fill: none; stroke-linecap: round; stroke-linejoin: round;
-        stroke-width: 32px;"
-        class="svelte-egdb0e" />
-      <circle
-        cx="384"
-        cy="400"
-        r="48"
-        style="fill: none; stroke-linecap: round; stroke-linejoin: round;
-        stroke-width: 32px;"
-        class="svelte-egdb0e" />
-      <line
-        x1="169.83"
-        y1="279.53"
-        x2="342.17"
-        y2="376.47"
-        style="fill: none; stroke-linecap: round; stroke-linejoin: round;
-        stroke-width: 32px;"
-        class="svelte-egdb0e" />
-      <line
-        x1="342.17"
-        y1="135.53"
-        x2="169.83"
-        y2="232.47"
-        style="fill: none; stroke-linecap: round; stroke-linejoin: round;
-        stroke-width: 32px;"
-        class="svelte-egdb0e" />
-    </svg>
-    <!-- / Icon Share -->
     <div class="card-description">
       {@html item.description}
     </div>

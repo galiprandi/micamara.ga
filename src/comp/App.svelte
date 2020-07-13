@@ -32,7 +32,6 @@
   const urlOfData =
     "https://spreadsheets.google.com/feeds/list/1FjerBKgvNepZfQkPaUbd9DMy5-SMr-XxEKeNsZhcPM4/od6/public/values?alt=json";
 
-  // $: $Query, $Products, searchOnList();
 
   $: QUERY, searchOnList();
 
