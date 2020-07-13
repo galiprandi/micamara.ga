@@ -3,16 +3,19 @@
 
   export let QUERY, LAST_SEARCH;
 
+  const serachSuggestions = [
+    "Sony",
+    "Flashes",
+    "Nikon",
+    "Canon",
+    "Gogox",
+    "Zhiyun-tech",
+    "Usados Seleccionados",
+  ];
+
   $: if (LAST_SEARCH) {
-    LAST_SEARCH = [
-      ...LAST_SEARCH,
-      "nikon",
-      "canon",
-      "godox",
-      "Zhiyun",
-      "usados",
-    ].slice(0, 7);
-  }
+    LAST_SEARCH = [...LAST_SEARCH, ...serachSuggestions].slice(0, 7);
+  } else LAST_SEARCH = [...serachSuggestions];
 
   let active = false;
   let action = "search";
@@ -35,20 +38,10 @@
       active = !active;
     }
   }
-  const iconClose = `
+  export const iconClose = `
   <title>Cerrar</title>
-          <line
-            x1="430"
-            y1="430"
-            x2="144"
-            y2="144"
-            style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
-          <line
-            x1="430"
-            y1="144"
-            x2="144"
-            y2="430"
-            style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
+  <line x1="430" y1="430" x2="144" y2="144" style="fill: none;stroke-linecap: round;stroke-linejoin: round;stroke-width: 32px;" />
+  <line x1="430" y1="144" x2="144" y2="430" style="fill: none;stroke-linecap: round;stroke-linejoin: round;stroke-width: 32px;" />
   `;
 </script>
 

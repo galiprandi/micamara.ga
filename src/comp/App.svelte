@@ -17,6 +17,7 @@
   import ProductList from "./ProductList.svelte";
   import Footer from "./Footer.svelte";
   import Aside from "./Aside.svelte";
+  import Icon from "./Icons.svelte";
 
   let QUERY,
     PRODUCTS,
@@ -255,6 +256,11 @@
 
 <main>
   <Header />
+
+  {#if (location.host = '0.0.0.0:8080')}
+    <Icon iconName="close" title="Click" stroke="orangered" fill="orangered" />
+  {/if}
+
   {#if PRODUCTS_SHOWED}
     {#if PRODUCTS_SHOWED.length}
       <ProductList {PRODUCTS} {PRODUCTS_SHOWED} {ONLINE} bind:QUERY />
