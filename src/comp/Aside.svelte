@@ -1,32 +1,24 @@
-<script context="module">
-  let active = false;
-  export const iconClose = `<title>Cerrar Menú</title>
-              <line x1="430" y1="430" x2="144" y2="144" style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"/>
-              <line x1="430" y1="144" x2="144" y2="430" style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"/>`;
-
-  const iconMenu = `<title>Mostrar categorías y rubros</title>
-              <line x1="80" y1="146" x2="432" y2="146" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/>
-              <line x1="80" y1="256" x2="432" y2="256" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/>
-              <line x1="80" y1="366" x2="432" y2="366" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/>`;
-
-  export function toggleMenu() {
-    active ? closeMenu() : openMenu();
-  }
-  export function openMenu() {
-    active = true;
-    document.getElementById("asideMenu").classList.add("active");
-    document.getElementById("iconClose").innerHTML = iconClose;
-  }
-  export function closeMenu() {
-    active = false;
-    document.getElementById("asideMenu").classList.remove("active");
-    document.getElementById("iconClose").innerHTML = iconMenu;
-  }
-</script>
-
 <script>
   import { saveSearch } from "./App.svelte";
-  export let PRODUCTS_TYPES, BRANDS, QUERY;
+
+  export let PRODUCTS_TYPES, BRANDS, QUERY, isOpenMenu;
+
+  $: if (isOpenMenu) openMenu();
+  else closeMenu();
+
+  function openMenu() {
+    if (document.getElementById("asideMenu")) {
+      isOpenMenu = true;
+      document.getElementById("asideMenu").classList.add("active");
+    }
+  }
+
+  function closeMenu() {
+    if (document.getElementById("asideMenu")) {
+      isOpenMenu = false;
+      document.getElementById("asideMenu").classList.remove("active");
+    }
+  }
 
   function newSearch(query) {
     QUERY = query.trim();
@@ -51,7 +43,7 @@
     transition: 0.4s all cubic-bezier(1, 0, 0, 1);
   }
 
-  aside.active {
+  aside.isOpenMenu {
     right: 0;
   }
 
@@ -99,7 +91,33 @@
   }
 </style>
 
-<aside class="asideMenu {active}" id="asideMenu">
+<!-- <script context="module">
+  let active = false;
+  export const iconClose = `<title>Cerrar Menú</title>
+              <line x1="430" y1="430" x2="144" y2="144" style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"/>
+              <line x1="430" y1="144" x2="144" y2="430" style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"/>`;
+
+  const iconMenu = `<title>Mostrar categorías y rubros</title>
+              <line x1="80" y1="146" x2="432" y2="146" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/>
+              <line x1="80" y1="256" x2="432" y2="256" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/>
+              <line x1="80" y1="366" x2="432" y2="366" style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"/>`;
+
+  export function toggleMenu() {
+    active ? closeMenu() : openMenu();
+  }
+  export function openMenu() {
+    active = true;
+    document.getElementById("asideMenu").classList.add("active");
+    //document.getElementById("iconClose").innerHTML = iconClose;
+  }
+  export function closeMenu() {
+    active = false;
+    document.getElementById("asideMenu").classList.remove("active");
+    // document.getElementById("iconClose").innerHTML = iconMenu;
+  }
+</script> -->
+
+<aside class="asideMenu" class:isOpenMenu id="asideMenu">
   <nav>
     <input class="inputs" checked type="radio" name="opt" id="op-1" />
     <label for="op-1">Rubros</label>
