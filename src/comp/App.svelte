@@ -28,6 +28,8 @@
     BRANDS,
     ONLINE = false;
 
+  let showProductOnStock = false;
+  let isOpenMenu = false;
   const limitOfResultToShow = 100;
   const urlOfData =
     "https://spreadsheets.google.com/feeds/list/1FjerBKgvNepZfQkPaUbd9DMy5-SMr-XxEKeNsZhcPM4/od6/public/values?alt=json";
@@ -48,6 +50,12 @@
       // FROM NETWORK
       PRODUCTS = await updateProducts();
       searchOnList();
+
+      // TIMER
+      const timer = setInterval(async () => {
+        PRODUCTS = await updateProducts();
+        searchOnList();
+      }, 1 * 60000);
     } catch (error) {
       console.error(error);
     }
@@ -263,13 +271,21 @@
 
   {#if PRODUCTS_SHOWED}
     {#if PRODUCTS_SHOWED.length}
-      <ProductList {PRODUCTS_SHOWED} {ONLINE} bind:QUERY />
+      <ProductList
+        {PRODUCTS_SHOWED}
+        {ONLINE}
+        bind:QUERY
+        bind:showProductOnStock />
     {:else}
       <div class="noProducts">
         <h2>No hay productos con esa descripción :(</h2>
       </div>
     {/if}
-    <Aside {PRODUCTS_TYPES} {BRANDS} bind:QUERY />
-    <Footer bind:QUERY bind:LAST_SEARCH />
+    <Aside {PRODUCTS_TYPES} {BRANDS} bind:QUERY bind:isOpenMenu />
+    <Footer
+      bind:QUERY
+      bind:LAST_SEARCH
+      bind:showProductOnStock
+      bind:isOpenMenu />
   {/if}
 </main>
