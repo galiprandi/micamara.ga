@@ -125,7 +125,7 @@
     {#if ONLINE}
       <h1
         class="card-price"
-        on:click|stopPropagation={() => copyToClipboard(`${item.name} ${item.price}`)}>
+        on:click|stopPropagation={() => window.copyToClipboard(`${item.name} ${item.price}`)}>
         {item.price}
         {#if item.feeValue}
           <span class="fee">{item.feeAmount} cuotas de {item.feeValue}</span>
