@@ -82,7 +82,7 @@
     if (!!str) {
       location.hash = str.replace(/( )/g, "_");
       // Search products by str
-      str = str.trim();
+      str = escapeRegExp(str.trim());
       setToLocal("Query", str);
       results = PRODUCTS.filter((item) => {
         let regEx = "";
@@ -110,6 +110,10 @@
     results = results.slice(0, limitOfResultToShow); // Cut results to limit
     PRODUCTS_SHOWED = results;
     LAST_SEARCH = getFromLocal("lastSearch");
+
+    function escapeRegExp(text) {
+      return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+    }
   }
 
   // ------------------------------------
