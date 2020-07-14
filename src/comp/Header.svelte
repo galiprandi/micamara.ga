@@ -123,6 +123,7 @@
     </a>
   </div>
   <div class="iconContainer">
+    <!-- Add to Home -->
     <svg
       id="add-button"
       xmlns="http://www.w3.org/2000/svg"
@@ -147,5 +148,6 @@
         y2="256"
         style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
     </svg>
+    <!-- / Add to Home -->
   </div>
 </div>

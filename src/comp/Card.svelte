@@ -7,17 +7,16 @@
 
   export let QUERY, ONLINE, item;
 
-  function cardClick(id) {
-    const card = document.getElementById(id);
-    if (location.hash) {
-      location.hash = "";
-      card.classList.remove("active");
-      return;
+  // Open / Close Card
+  function clickOnCard() {
+    const className = "active";
+    if (this.classList.contains(className)) {
+      this.classList.remove(className);
+      location.hash = QUERY.replace(/( )/g, "_");
+    } else {
+      location.hash = this.dataset.name.replace(/( )/g, "_");
+      this.classList.add(className);
     }
-
-    const name = card.dataset.name;
-    if (name) location.hash = name;
-    card.classList.toggle("active");
   }
 
   function copyToClipboard(text) {
@@ -106,12 +105,13 @@
   }
 </style>
 
+<!-- on:click={(e) => cardClick(item.id)} -->
 <div
-  on:click={(e) => cardClick(item.id)}
+  on:click={clickOnCard}
   class="card"
   class:outStock={item.stock < 1}
   class:active
-  data-name={item.name.replace(/( )/g, '_')}
+  data-name={item.name}
   title="Click para ampliar o cerrar"
   id={item.id}>
   <div class="card-image">

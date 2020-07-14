@@ -3,6 +3,7 @@
 
   import Card from "./Card.svelte";
   let listType = "";
+  export let showProductOnStock;
 </script>
 
 <style>
@@ -96,7 +97,15 @@
 <section class="products-list">
   {#if PRODUCTS_SHOWED}
     {#each PRODUCTS_SHOWED as item}
-      <Card {item} {ONLINE} bind:QUERY />
+      {#if showProductOnStock}
+        <!-- Only Stock Item -->
+        {#if item.stock > 0}
+          <Card {item} {ONLINE} bind:QUERY />
+        {/if}
+        <!-- show All Item -->
+      {:else}
+        <Card {item} {ONLINE} bind:QUERY />
+      {/if}
     {/each}
   {:else}
     <!-- Loading spiner -->

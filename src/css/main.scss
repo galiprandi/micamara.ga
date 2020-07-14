@@ -51,3 +51,12 @@ b {
 /*
 * / Global Secction
 */
+
+.material-icons {
+  cursor: pointer;
+  color: var(--color-2);
+  font-size: 2rem;
+}
+.material-icons:hover {
+  color: var(--Color-3);
+}

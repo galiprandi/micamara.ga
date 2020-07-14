@@ -1,7 +1,5 @@
 <script>
-  import { toggleMenu, closeMenu } from "./Aside.svelte";
-
-  export let QUERY, LAST_SEARCH;
+  export let QUERY, LAST_SEARCH, showProductOnStock, isOpenMenu;
 
   const serachSuggestions = [
     "Sony",
@@ -33,16 +31,11 @@
         url: window.location,
       });
     } else {
-      //floatContainer(el);
       action = "share";
       active = !active;
+      if (active) isOpenMenu = false;
     }
   }
-  export const iconClose = `
-  <title>Cerrar</title>
-  <line x1="430" y1="430" x2="144" y2="144" style="fill: none;stroke-linecap: round;stroke-linejoin: round;stroke-width: 32px;" />
-  <line x1="430" y1="144" x2="144" y2="430" style="fill: none;stroke-linecap: round;stroke-linejoin: round;stroke-width: 32px;" />
-  `;
 </script>
 
 <style>
@@ -56,17 +49,10 @@
     color: var(--color-2);
     padding: 1rem;
     text-transform: capitalize;
-    --icon-size: 32px;
   }
   .fixedIcons {
     display: flex;
     justify-content: space-around;
-    height: var(--icon-size);
-  }
-  .fixedIcons * {
-    display: block;
-    height: var(--icon-size);
-    width: var(--icon-size);
   }
 
   .btn-icon {
@@ -114,6 +100,9 @@
     display: flex;
     justify-content: space-around;
   }
+  a {
+    text-decoration: none;
+  }
 </style>
 
 <nav id="nav">
@@ -132,7 +121,6 @@
                   on:click={() => {
                     active = false;
                     QUERY = item;
-                    closeMenu();
                   }}>
                   {item}
                 </li>
@@ -213,75 +201,19 @@
 
     <!-- Share Button -->
     <div>
-      <svg
+      <i
         on:click|capture={btnShare}
+        title="Compartir"
         action="share"
-        class="btn-icon"
-        xmlns="http://www.w3.org/2000/svg"
-        width="512"
-        height="512"
-        viewBox="0 0 512 512">
-        {#if active && action === 'share'}
-          <title>Cerrar</title>
-          <line
-            x1="430"
-            y1="430"
-            x2="144"
-            y2="144"
-            style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
-          <line
-            x1="430"
-            y1="144"
-            x2="144"
-            y2="430"
-            style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
-        {:else}
-          <title>Compartir</title>
-          <circle
-            cx="128"
-            cy="256"
-            r="48"
-            style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
-          <circle
-            cx="384"
-            cy="112"
-            r="48"
-            style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
-          <circle
-            cx="384"
-            cy="400"
-            r="48"
-            style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
-          <line
-            x1="169.83"
-            y1="279.53"
-            x2="342.17"
-            y2="376.47"
-            style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
-          <line
-            x1="342.17"
-            y1="135.53"
-            x2="169.83"
-            y2="232.47"
-            style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
-        {/if}
-      </svg>
+        class="material-icons">
+        {#if active && action === 'share'}close{:else}share{/if}
+      </i>
     </div>
     <!-- / Share Button -->
     <!-- Call Button -->
     <div>
       <a href="tel:+5493815900868" title="Llamar">
-        <svg
-          class="btn-icon"
-          xmlns="http://www.w3.org/2000/svg"
-          width="512"
-          height="512"
-          viewBox="0 0 512 512">
-          <title>Llamar</title>
-          <path
-            d="M451,374c-15.88-16-54.34-39.35-73-48.76C353.7,313,351.7,312,332.6,326.19c-12.74,9.47-21.21,17.93-36.12,14.75s-47.31-21.11-75.68-49.39-47.34-61.62-50.53-76.48,5.41-23.23,14.79-36c13.22-18,12.22-21,.92-45.3-8.81-18.9-32.84-57-48.9-72.8C119.9,44,119.9,47,108.83,51.6A160.15,160.15,0,0,0,83,65.37C67,76,58.12,84.83,51.91,98.1s-9,44.38,23.07,102.64,54.57,88.05,101.14,134.49S258.5,406.64,310.85,436c64.76,36.27,89.6,29.2,102.91,23s22.18-15,32.83-31a159.09,159.09,0,0,0,13.8-25.8C465,391.17,468,391.17,451,374Z"
-            style="fill:none;stroke-miterlimit:10;stroke-width:32px" />
-        </svg>
+        <i class="material-icons">phone</i>
       </a>
     </div>
     <!-- / Call Button -->
@@ -291,97 +223,48 @@
         href="https://m.me/100010196598541"
         target="_blank"
         rel="noopener"
-        title="Enviar un mensaje">
-        <svg
-          class="btn-icon"
-          xmlns="http://www.w3.org/2000/svg"
-          width="512"
-          height="512"
-          viewBox="0 0 512 512">
-          <title>Enviar un mensaje</title>
-          <path
-            d="M87.49,380c1.19-4.38-1.44-10.47-3.95-14.86A44.86,44.86,0,0,0,81,361.34a199.81,199.81,0,0,1-33-110C47.65,139.09,140.73,48,255.83,48,356.21,48,440,117.54,459.58,209.85A199,199,0,0,1,464,251.49c0,112.41-89.49,204.93-204.59,204.93-18.3,0-43-4.6-56.47-8.37s-26.92-8.77-30.39-10.11a31.09,31.09,0,0,0-11.12-2.07,30.71,30.71,0,0,0-12.09,2.43L81.51,462.78A16,16,0,0,1,76.84,464a9.6,9.6,0,0,1-9.57-9.74,15.85,15.85,0,0,1,.6-3.29Z"
-            style="fill:none;stroke-miterlimit:10;stroke-width:32px" />
-        </svg>
+        title="Chatear">
+        <i class="material-icons">chat</i>
       </a>
     </div>
     <!-- / Messenger Button -->
     <!-- Search Button -->
     <div>
-      <svg
+      <i
         on:click={() => {
           active = !active;
+          if (active) isOpenMenu = false;
           action = 'search';
         }}
-        action="search"
-        class="btn-icon"
-        xmlns="http://www.w3.org/2000/svg"
-        width="512"
-        height="512"
-        viewBox="0 0 512 512">
-        {#if active && action === 'search'}
-          <title>Cerrar Menú</title>
-          <line
-            x1="430"
-            y1="430"
-            x2="144"
-            y2="144"
-            style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
-          <line
-            x1="430"
-            y1="144"
-            x2="144"
-            y2="430"
-            style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
-        {:else}
-          <title>Buscar</title>
-          <path
-            d="M221.09,64A157.09,157.09,0,1,0,378.18,221.09,157.1,157.1,0,0,0,221.09,64Z"
-            style="fill:none;;stroke-miterlimit:10;stroke-width:32px" />
-          <line
-            x1="338.29"
-            y1="338.29"
-            x2="448"
-            y2="448"
-            style="fill:none;;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px" />
-        {/if}
-      </svg>
-
+        title="Buscar"
+        class="material-icons">
+        {#if active && action === 'search'}close{:else}search{/if}
+      </i>
     </div>
     <!-- / Search Button -->
+
+    <!-- Filter: Show products on stock -->
+    <div>
+      <i
+        on:click={() => (showProductOnStock = !showProductOnStock)}
+        class="material-icons"
+        title="Todos los productos">
+        {#if showProductOnStock}visibility_off{:else}visibility{/if}
+      </i>
+    </div>
+    <!-- / Filter: Show products on stock -->
+
     <!-- Menu Button -->
-    <div title="Mostrar categorías y rubros">
-      <svg
+    <div>
+      <i
         on:click={() => {
-          active = false;
-          toggleMenu();
+          isOpenMenu = !isOpenMenu;
+          if (isOpenMenu) active = false;
         }}
-        id="iconClose"
-        action="menu"
-        class="btn-icon"
-        xmlns="http://www.w3.org/2000/svg"
-        width="512"
-        height="512"
-        viewBox="0 0 512 512">
-        <line
-          x1="80"
-          y1="146"
-          x2="432"
-          y2="146"
-          style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px" />
-        <line
-          x1="80"
-          y1="256"
-          x2="432"
-          y2="256"
-          style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px" />
-        <line
-          x1="80"
-          y1="366"
-          x2="432"
-          y2="366"
-          style="fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px" />
-      </svg>
+        title="Menú"
+        class="material-icons">
+        {#if isOpenMenu}close{:else}menu{/if}
+      </i>
     </div>
     <!-- / Menu Button -->
   </div>
