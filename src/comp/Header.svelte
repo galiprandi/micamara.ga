@@ -4,7 +4,7 @@
   onMount(async () => {
     // Install App Function
     let deferredPrompt;
-    const addBtn = document.querySelector(".add-button");
+    const addBtn = document.querySelector("#add-button");
     addBtn.style.display = "none";
     window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
@@ -48,16 +48,17 @@
     height: 36px;
     width: auto;
   }
-  #logo:hover,
-  .btn-icon {
+  #logo:hover {
     stroke: var(--Color-3);
   }
-  .btn-icon {
-    stroke: var(--color-2);
+  #add-button {
+    display: flex;
+    align-items: center;
+    color: var(--color-2);
+    cursor: pointer;
   }
-  .btn-icon:hover {
-    stroke: var(--color-3);
-    stroke: var(--Color-3);
+  #add-button i {
+    margin-left: 10px;
   }
 </style>
 
@@ -122,9 +123,14 @@
 
     </a>
   </div>
-  <div class="iconContainer">
+  <div class="iconContainer" title="Instalar">
     <!-- Add to Home -->
-    <svg
+    <div id="add-button">
+      Instalar
+      <i class="material-icons btn-icon hover">favorite</i>
+    </div>
+
+    <!-- <svg
       id="add-button"
       xmlns="http://www.w3.org/2000/svg"
       class="btn-icon add-button"
@@ -147,7 +153,7 @@
         x2="176"
         y2="256"
         style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
-    </svg>
+    </svg> -->
     <!-- / Add to Home -->
   </div>
 </div>
