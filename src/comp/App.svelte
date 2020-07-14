@@ -44,8 +44,12 @@
       CATEGORIES = getFromLocal("Categories");
       PRODUCTS_TYPES = getFromLocal("ProductsTypes");
       BRANDS = getFromLocal("Brands");
-      if (location.hash)
-        QUERY = decodeURI(location.hash.replace(/(_)/g, " ").slice(1));
+      if (location.hash.slice(1)) {
+        QUERY = decodeURI(
+          location.hash.replace(/(_)/g, " ").replace(/(\\|#)/gi, "")
+        );
+        console.info(`Searching term '${QUERY}' from URI '${location.hash}'`);
+      }
 
       // FROM NETWORK
       PRODUCTS = await updateProducts();
@@ -89,7 +93,7 @@
         try {
           regEx = new RegExp(str, "gi");
         } catch (error) {
-          // console.error(error);
+          console.error(error);
           return false;
         }
         return (
