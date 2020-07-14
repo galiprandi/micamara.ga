@@ -93,6 +93,9 @@
   }
   .card.active .card-description {
     display: block;
+    display: block;
+    max-width: 80ch;
+    margin: auto;
   }
 </style>
 
