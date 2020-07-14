@@ -112,7 +112,13 @@
             </ul>
           {/if}
           <input
-            on:focus={(e) => e.target.select()}
+            on:focus={(e) => {
+              e.target.value.trim();
+              e.target.select();
+            }}
+            on:change={() => {
+              active = false;
+            }}
             id="searchBox"
             type="searchBox"
             bind:value={QUERY}
