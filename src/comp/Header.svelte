@@ -5,7 +5,7 @@
     // Install App Function
     let deferredPrompt;
     const addBtn = document.querySelector("#add-button");
-    addBtn.style.display = "none";
+    // addBtn.style.display = "none";
     window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
       deferredPrompt = e;
@@ -54,6 +54,7 @@
   #add-button {
     display: flex;
     align-items: center;
+    line-height: 30px;
     color: var(--color-2);
     cursor: pointer;
   }
@@ -126,7 +127,7 @@
   <div class="iconContainer" title="Instalar">
     <!-- Add to Home -->
     <div id="add-button">
-      Instalar
+      <span>Instalar</span>
       <i class="material-icons btn-icon hover">favorite</i>
     </div>
 
