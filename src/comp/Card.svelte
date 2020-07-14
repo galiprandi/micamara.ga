@@ -18,15 +18,6 @@
       this.classList.add(className);
     }
   }
-
-  function copyToClipboard(text) {
-    let el = document.createElement("textarea");
-    el.value = text;
-    document.body.appendChild(el);
-    el.select();
-    document.execCommand("copy");
-    document.body.removeChild(el);
-  }
 </script>
 
 <style>

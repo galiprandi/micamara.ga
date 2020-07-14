@@ -251,6 +251,24 @@
       return this;
     }
   };
+
+  /**
+   * * Copy text to clipboard
+   * * Usage: copyToClipboard("Text to Copy");
+   */
+  window.copyToClipboard = (textToCopy) => {
+    try {
+      let el = document.createElement("textarea");
+      el.value = textToCopy;
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand("copy");
+      document.body.removeChild(el);
+      console.info(`Text copied: ${textToCopy}`);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 </script>
 
 <style>
