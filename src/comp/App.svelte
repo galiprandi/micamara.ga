@@ -55,7 +55,7 @@
       const timer = setInterval(async () => {
         PRODUCTS = await updateProducts();
         searchOnList();
-      }, 1 * 60000);
+      }, 60 * 60000);
     } catch (error) {
       console.error(error);
     }

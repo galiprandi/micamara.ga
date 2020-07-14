@@ -9,6 +9,7 @@
   --Color-3: #ff6b6bff; // secondary, color4
   --color-4: white; // light
   --color-5: rgb(34, 34, 34); //dark
+  --icon-size: 30px;
 
   /*
     --dark: rgb(34, 34, 34);
@@ -30,33 +31,33 @@
   box-sizing: border-box;
 }
 body {
-  color: var(--dark);
+  // color: var(--dark);
   font-family: "Montserrat", sans-serif;
 }
-a,
-a:visited {
-  color: var(--color-2);
-}
-a:hover {
-  color: var(--color-3);
-}
+
 .btn-icon,
-svg {
-  width: 32px;
-  height: 32px;
+.btn-icon:visited {
+  cursor: pointer;
+  font-size: var(--icon-size);
+  color: #1a535cff;
 }
-b {
-  font-weight: bold;
+.btn-icon:hover,
+.btn-icon:active {
+  color: var(--Color-3);
+}
+.btn-icon.hover {
+  color: var(--Color-3);
+}
+svg.btn-icon path {
+  fill: #1a535cff;
+}
+svg.btn-icon:hover path {
+  fill: #ff6b6bff;
+}
+svg.btn-icon {
+  width: var(--icon-size);
+  height: var(--icon-size);
 }
 /*
 * / Global Secction
 */
-
-.material-icons {
-  cursor: pointer;
-  color: var(--color-2);
-  font-size: 2rem;
-}
-.material-icons:hover {
-  color: var(--Color-3);
-}

@@ -16,7 +16,7 @@
   } else LAST_SEARCH = [...serachSuggestions];
 
   let active = false;
-  let action = "search";
+  let action = "share";
 
   function floatContainer(el) {
     active = !active;
@@ -46,7 +46,7 @@
     left: 0;
     width: 100%;
     text-align: center;
-    color: var(--color-2);
+    /* color: var(--color-2); */
     padding: 1rem;
     text-transform: capitalize;
   }
@@ -55,22 +55,6 @@
     justify-content: space-around;
   }
 
-  .btn-icon {
-    cursor: pointer;
-    stroke: var(--color-2);
-  }
-
-  .btn-icon:hover,
-  .btn-icon:active {
-    stroke: var(--Color-3);
-  }
-
-  .btn-icon.filled {
-    fill: var(--color-2);
-  }
-  .btn-icon.filled:hover {
-    fill: var(--color-3);
-  }
   #floatContainer {
     margin: 1rem 0;
   }
@@ -205,7 +189,7 @@
         on:click|capture={btnShare}
         title="Compartir"
         action="share"
-        class="material-icons">
+        class="material-icons btn-icon">
         {#if active && action === 'share'}close{:else}share{/if}
       </i>
     </div>
@@ -213,7 +197,7 @@
     <!-- Call Button -->
     <div>
       <a href="tel:+5493815900868" title="Llamar">
-        <i class="material-icons">phone</i>
+        <i class="material-icons btn-icon">phone</i>
       </a>
     </div>
     <!-- / Call Button -->
@@ -224,7 +208,7 @@
         target="_blank"
         rel="noopener"
         title="Chatear">
-        <i class="material-icons">chat</i>
+        <i class="material-icons btn-icon">chat</i>
       </a>
     </div>
     <!-- / Messenger Button -->
@@ -237,7 +221,7 @@
           action = 'search';
         }}
         title="Buscar"
-        class="material-icons">
+        class="material-icons btn-icon">
         {#if active && action === 'search'}close{:else}search{/if}
       </i>
     </div>
@@ -247,7 +231,7 @@
     <div>
       <i
         on:click={() => (showProductOnStock = !showProductOnStock)}
-        class="material-icons"
+        class="material-icons btn-icon"
         title="Todos los productos">
         {#if showProductOnStock}visibility_off{:else}visibility{/if}
       </i>
@@ -262,7 +246,7 @@
           if (isOpenMenu) active = false;
         }}
         title="Menú"
-        class="material-icons">
+        class="material-icons btn-icon">
         {#if isOpenMenu}close{:else}menu{/if}
       </i>
     </div>
