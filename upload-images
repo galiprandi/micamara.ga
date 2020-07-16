@@ -1,0 +1,9 @@
+#!/bin/bash
+clear
+echo ""
+echo "Subiendo imágenes convertidas a GitHub..."
+echo "--------------------------------------------------------"
+
+npm run upload-images
+
+read -p "Todo listo !"
