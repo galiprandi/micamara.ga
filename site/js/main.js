@@ -3994,9 +3994,9 @@ var app = (function () {
     			h2 = element("h2");
     			h2.textContent = "No hay productos con esa descripción :(";
     			attr_dev(h2, "class", "svelte-fbbdtu");
-    			add_location(h2, file$6, 327, 8, 8395);
+    			add_location(h2, file$6, 327, 8, 8384);
     			attr_dev(div, "class", "noProducts svelte-fbbdtu");
-    			add_location(div, file$6, 326, 6, 8362);
+    			add_location(div, file$6, 326, 6, 8351);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -4120,7 +4120,7 @@ var app = (function () {
     			t = space();
     			if (if_block) if_block.c();
     			attr_dev(main, "class", "svelte-fbbdtu");
-    			add_location(main, file$6, 311, 0, 8011);
+    			add_location(main, file$6, 311, 0, 8000);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -4229,14 +4229,16 @@ var app = (function () {
 
     	onMount(async () => {
     		try {
-    			// FROM URL
-    			if (location.hash.slice(1)) {
-    				$$invalidate(0, QUERY = decodeURI(location.hash.replace(/(_)/g, " ").replace(/(\\|#)/gi, "")));
-    			}
+    			$$invalidate(0, QUERY = "");
 
     			// FROM LOCAL
     			if (getFromLocal("Query")) {
     				$$invalidate(0, QUERY = getFromLocal("Query").replace(/\\|#/gi, ""));
+    			}
+
+    			// FROM URL
+    			if (location.hash.slice(1)) {
+    				$$invalidate(0, QUERY = decodeURI(location.hash.replace(/(_)/g, " ").replace(/(\\|#)/gi, "")));
     			}
 
     			PRODUCTS = getFromLocal("Products");
@@ -4302,7 +4304,6 @@ var app = (function () {
     			results = sortObjetcByKey(results, "name"); // Order results
     		} else // Show shuffle default results
     		{
-    			console.log("shufle");
     			results = PRODUCTS.sort(() => Math.random() - 0.5);
     		}
 

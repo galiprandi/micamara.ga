@@ -40,15 +40,16 @@
 
   onMount(async () => {
     try {
+      QUERY = "";
+      // FROM LOCAL
+      if (getFromLocal("Query")) {
+        QUERY = getFromLocal("Query").replace(/\\|#/gi, "");
+      }
       // FROM URL
       if (location.hash.slice(1)) {
         QUERY = decodeURI(
           location.hash.replace(/(_)/g, " ").replace(/(\\|#)/gi, "")
         );
-      }
-      // FROM LOCAL
-      if (getFromLocal("Query")) {
-        QUERY = getFromLocal("Query").replace(/\\|#/gi, "");
       }
       PRODUCTS = getFromLocal("Products");
       CATEGORIES = getFromLocal("Categories");
@@ -113,7 +114,6 @@
 
     // Show shuffle default results
     else {
-      console.log("shufle");
       results = PRODUCTS.sort(() => Math.random() - 0.5);
     }
     results = results.slice(0, limitOfResultToShow); // Cut results to limit
