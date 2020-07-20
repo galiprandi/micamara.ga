@@ -1,5 +1,5 @@
 <script>
-  import { saveSearch } from "./App.svelte";
+  import App, { saveSearch } from "./App.svelte";
 
   export let PRODUCTS_TYPES, BRANDS, QUERY, isOpenMenu;
 
@@ -54,7 +54,6 @@
   ul {
     display: block;
     margin-bottom: 100px;
-    widows: 100%;
   }
   li {
     display: block;
@@ -137,7 +136,7 @@
         <ul>
           {#if BRANDS}
             {#each BRANDS as item, i}
-              <li on:click={() => newSearch(item)}>{item}</li>
+              <li id={i} on:click={() => newSearch(item)}>{item}</li>
             {/each}
           {/if}
         </ul>
