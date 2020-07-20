@@ -3770,7 +3770,7 @@ var app = (function () {
     const { console: console_1$2 } = globals;
     const file$6 = "src/Components/App.svelte";
 
-    // (301:2) {#if PRODUCTS_SHOWED}
+    // (307:2) {#if PRODUCTS_SHOWED}
     function create_if_block$5(ctx) {
     	let current_block_type_index;
     	let if_block;
@@ -3973,14 +3973,14 @@ var app = (function () {
     		block,
     		id: create_if_block$5.name,
     		type: "if",
-    		source: "(301:2) {#if PRODUCTS_SHOWED}",
+    		source: "(307:2) {#if PRODUCTS_SHOWED}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (308:4) {:else}
+    // (314:4) {:else}
     function create_else_block$4(ctx) {
     	let div;
     	let h2;
@@ -3991,9 +3991,9 @@ var app = (function () {
     			h2 = element("h2");
     			h2.textContent = "No hay productos con esa descripción :(";
     			attr_dev(h2, "class", "svelte-fbbdtu");
-    			add_location(h2, file$6, 309, 8, 7956);
+    			add_location(h2, file$6, 315, 8, 8141);
     			attr_dev(div, "class", "noProducts svelte-fbbdtu");
-    			add_location(div, file$6, 308, 6, 7923);
+    			add_location(div, file$6, 314, 6, 8108);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -4011,14 +4011,14 @@ var app = (function () {
     		block,
     		id: create_else_block$4.name,
     		type: "else",
-    		source: "(308:4) {:else}",
+    		source: "(314:4) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (302:4) {#if PRODUCTS_SHOWED.length}
+    // (308:4) {#if PRODUCTS_SHOWED.length}
     function create_if_block_1$4(ctx) {
     	let productlist;
     	let updating_QUERY;
@@ -4095,7 +4095,7 @@ var app = (function () {
     		block,
     		id: create_if_block_1$4.name,
     		type: "if",
-    		source: "(302:4) {#if PRODUCTS_SHOWED.length}",
+    		source: "(308:4) {#if PRODUCTS_SHOWED.length}",
     		ctx
     	});
 
@@ -4117,7 +4117,7 @@ var app = (function () {
     			t = space();
     			if (if_block) if_block.c();
     			attr_dev(main, "class", "svelte-fbbdtu");
-    			add_location(main, file$6, 293, 0, 7572);
+    			add_location(main, file$6, 299, 0, 7757);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -4225,19 +4225,20 @@ var app = (function () {
 
     	onMount(async () => {
     		try {
-    			// FROM LOCAL
-    			$$invalidate(0, QUERY = getFromLocal("Query"));
+    			// FROM URL
+    			if (location.hash.slice(1)) {
+    				$$invalidate(0, QUERY = decodeURI(location.hash.replace(/(_)/g, " ").replace(/(\\|#)/gi, "")));
+    			}
 
-    			if (QUERY) $$invalidate(0, QUERY = QUERY.replace(/\\|#/gi, ""));
+    			// FROM LOCAL
+    			if (getFromLocal("Query")) {
+    				$$invalidate(0, QUERY = getFromLocal("Query").replace(/\\|#/gi, ""));
+    			}
+
     			PRODUCTS = getFromLocal("Products");
     			CATEGORIES = getFromLocal("Categories");
     			$$invalidate(3, PRODUCTS_TYPES = getFromLocal("ProductsTypes"));
     			$$invalidate(4, BRANDS = getFromLocal("Brands"));
-
-    			if (location.hash.slice(1)) {
-    				$$invalidate(0, QUERY = decodeURI(location.hash.replace(/(_)/g, " ").replace(/(\\|#)/gi, "")));
-    				console.info(`Searching term '${QUERY}' from URI '${location.hash}'`);
-    			}
 
     			// FROM NETWORK
     			PRODUCTS = await updateProducts();
@@ -4282,19 +4283,16 @@ var app = (function () {
 
     			location.hash = str.replace(/( )/g, "_"); // Update location.hash
     			setToLocal("Query", str);
-    			str = escapeRegExp(str);
 
     			results = PRODUCTS.filter(item => {
-    				let regEx = "";
-
     				try {
-    					regEx = new RegExp(str, "gi");
+    					const expession = new RegExp(escapeRegExp(str), "gi");
+    					console.info(`Serching: ${expession}`);
+    					return item.name.match(expession) || item.brand.match(expession) || item.categorie.match(expession) || item.productType.match(expession);
     				} catch(error) {
     					console.error(error);
     					return false;
-    				}
-
-    				return item.name.match(regEx) || item.brand.match(regEx) || item.categorie.match(regEx) || item.productType.match(regEx);
+    				} // Try
     			});
 
     			results = sortObjetcByKey(results, "name"); // Order results
@@ -4309,8 +4307,14 @@ var app = (function () {
     		$$invalidate(2, LAST_SEARCH = getFromLocal("lastSearch"));
 
     		function escapeRegExp(text) {
-    			return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-    		}
+    			try {
+    				// return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+    				return text.replace(/[-[\]{}()*+?.,\\^$|#]/g, "\\$&");
+    			} catch(error) {
+    				console.error(error);
+    				return "";
+    			}
+    		} // escapeRegExp()
     	}
 
     	// ------------------------------------

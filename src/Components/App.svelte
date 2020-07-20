@@ -38,19 +38,20 @@
 
   onMount(async () => {
     try {
-      // FROM LOCAL
-      QUERY = getFromLocal("Query");
-      if (QUERY) QUERY = QUERY.replace(/\\|#/gi, "");
-      PRODUCTS = getFromLocal("Products");
-      CATEGORIES = getFromLocal("Categories");
-      PRODUCTS_TYPES = getFromLocal("ProductsTypes");
-      BRANDS = getFromLocal("Brands");
+      // FROM URL
       if (location.hash.slice(1)) {
         QUERY = decodeURI(
           location.hash.replace(/(_)/g, " ").replace(/(\\|#)/gi, "")
         );
-        console.info(`Searching term '${QUERY}' from URI '${location.hash}'`);
       }
+      // FROM LOCAL
+      if (getFromLocal("Query")) {
+        QUERY = getFromLocal("Query").replace(/\\|#/gi, "");
+      }
+      PRODUCTS = getFromLocal("Products");
+      CATEGORIES = getFromLocal("Categories");
+      PRODUCTS_TYPES = getFromLocal("ProductsTypes");
+      BRANDS = getFromLocal("Brands");
 
       // FROM NETWORK
       PRODUCTS = await updateProducts();
@@ -89,22 +90,21 @@
       str = str.trim();
       location.hash = str.replace(/( )/g, "_"); // Update location.hash
       setToLocal("Query", str);
-      str = escapeRegExp(str);
 
       results = PRODUCTS.filter((item) => {
-        let regEx = "";
         try {
-          regEx = new RegExp(str, "gi");
+          const expession = new RegExp(escapeRegExp(str), "gi");
+          console.info(`Serching: ${expession}`);
+          return (
+            item.name.match(expession) ||
+            item.brand.match(expession) ||
+            item.categorie.match(expession) ||
+            item.productType.match(expession)
+          );
         } catch (error) {
           console.error(error);
           return false;
-        }
-        return (
-          item.name.match(regEx) ||
-          item.brand.match(regEx) ||
-          item.categorie.match(regEx) ||
-          item.productType.match(regEx)
-        );
+        } // Try
       });
       results = sortObjetcByKey(results, "name"); // Order results
     }
@@ -119,8 +119,14 @@
     LAST_SEARCH = getFromLocal("lastSearch");
 
     function escapeRegExp(text) {
-      return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-    }
+      try {
+        // return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+        return text.replace(/[-[\]{}()*+?.,\\^$|#]/g, "\\$&");
+      } catch (error) {
+        console.error(error);
+        return "";
+      }
+    } // escapeRegExp()
   }
 
   // ------------------------------------
