@@ -28,6 +28,8 @@
     BRANDS,
     ONLINE = false;
 
+  window.setOfBrand = new Set();
+
   let showProductOnStock = false;
   let isOpenMenu = false;
   const limitOfResultToShow = 100;
@@ -148,9 +150,13 @@
   // Prepare and filter data
   // ------------------------------------
   function parseData(data) {
-    let categories = [];
-    let productsTypes = [];
-    let brands = [];
+    //let categories = [];
+    //let productsTypes = [];
+    //let brands = [];
+    const brands = new Set(),
+      productsTypes = new Set(),
+      categories = new Set();
+
     let results = data.reduce((accu, item, i) => {
       // Verifica Stock, Activo, Web
       if (
@@ -204,25 +210,31 @@
       };
 
       accu = [...accu, toAdd];
-      categories = [...categories, categorie.capitalize()];
-      productsTypes = [...productsTypes, productType.capitalize()];
-      brands = [...brands, brand.capitalize()];
+      // categories = [...categories, categorie.capitalize()];
+      // productsTypes = [...productsTypes, productType.capitalize()];
+      // brands = [...brands, brand.capitalize()];
+
+      brands.add(brand.capitalize());
+      productsTypes.add(productType.capitalize());
+      categories.add(categorie.capitalize());
+
       return accu;
     }, []); // Reduce
 
     ONLINE = true;
 
-    CATEGORIES = [...new Set(categories)].sort();
+    CATEGORIES = [...categories].sort();
     setToLocal("Categories", CATEGORIES);
 
-    PRODUCTS_TYPES = [...new Set(productsTypes)].sort();
+    PRODUCTS_TYPES = [...productsTypes].sort();
     setToLocal("ProductsTypes", PRODUCTS_TYPES);
 
-    BRANDS = [...new Set(brands)].sort();
+    BRANDS = [...brands].sort();
     setToLocal("Brands", BRANDS);
 
     results = [...sortObjetcByKey(results, "name")];
     setToLocal("Products", results);
+
     return results;
   }
 
