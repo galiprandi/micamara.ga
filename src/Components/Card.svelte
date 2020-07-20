@@ -35,9 +35,9 @@
     place-content: center;
   }
   .card-image img {
-    width: 95%;
-    max-width: 500px;
-    height: auto;
+    width: 100%;
+    height: 100%;
+    padding: 1em;
   }
 
   .card-body {
@@ -80,8 +80,9 @@
   /* ============== .acive ======================= */
   .card.active {
     position: fixed;
-    min-height: 100vh;
+    max-height: 100vh;
     width: 100%;
+    height: 100vh;
     top: 0;
     left: 0;
     box-shadow: none;
