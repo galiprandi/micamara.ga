@@ -25,14 +25,14 @@
   }
 
   async function btnShare() {
+    copyToClipboard(window.location);
+    console.log(`Copied to clipboard: '${window.location}'`);
     if (navigator.share) {
       await navigator.share({
         title: document.title,
         url: window.location,
       });
     } else {
-      copyToClipboard(window.location);
-      console.log(`Copied to clipboard: '${window.location}'`);
       action = "share";
       active = !active;
       if (active) isOpenMenu = false;
