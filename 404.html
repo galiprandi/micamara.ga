@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gadget</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f9e86d;
+        height: 100vh;
+        color: #2b545c;
+        font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+          "Lucida Sans", Arial, sans-serif;
+      }
+
+      .container {
+        text-align: center;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 14px;
+      }
+
+      button {
+        cursor: pointer;
+        outline: 0;
+        border: 0;
+        margin: 20px;
+        line-height: 2em;
+        background-color: #f9e86d;
+        color: #2b545c;
+        font-weight: bold;
+        border: 1px solid #2b545c;
+      }
+    </style>
+    <script>
+      function goHome() {
+        location.href = "/";
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <img src="/site/images/logo-192.png" alt="Gadget" />
+      <h1>Recurso no encontrado</h1>
+      <button onclick="goHome()">Volver al Home</button>
+    </div>
+  </body>
+</html>
