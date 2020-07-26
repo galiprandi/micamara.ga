@@ -7,6 +7,7 @@ const app = new App({
 
 
 if ("serviceWorker" in navigator && location.hostname !== "192.168.1.50") {
+  console.log('ok');
   window.addEventListener("load", function () {
     navigator.serviceWorker.register("sw.js").then(
       function (registration) {
