@@ -1,6 +1,4 @@
 <script>
-  import App, { saveSearch } from "./App.svelte";
-
   export let PRODUCTS_TYPES, BRANDS, QUERY, isOpenMenu;
 
   $: if (isOpenMenu) openMenu();
@@ -22,7 +20,7 @@
 
   function newSearch(query) {
     QUERY = query.trim();
-    saveSearch(query);
+    window.saveSearch(query);
     closeMenu();
   }
 </script>

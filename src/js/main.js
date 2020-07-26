@@ -23,6 +23,6 @@ if ("serviceWorker" in navigator && location.hostname !== "192.168.1.50") {
     );
   });
 }
-console.warn(`ServiceWorker no available.`);
+else console.warn(`ServiceWorker no available.`);
 
 export default app;

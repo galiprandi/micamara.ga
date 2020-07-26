@@ -238,6 +238,18 @@
     return results;
   }
 
+  /**
+   * Save last search
+   */
+  
+   window.saveSearch = (str) => {
+    let store = getFromLocal("lastSearch");
+    if (!store) store = [];
+    store = [...new Set([str, ...store])].slice(0, 7);
+    setToLocal("lastSearch", store);
+  }
+   
+
   function setToLocal(key, value) {
     try {
       localStorage.setItem(key, JSON.stringify(value));
