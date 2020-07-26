@@ -6,11 +6,8 @@ const app = new App({
 });
 
 
-if ("serviceWorker" in navigator) {
-  if (location.hostname === "192.168.1.50") {
-    console.warn(`ServiceWorker no available on ${location.hostname}`);
-    return
-  }
+if ("serviceWorker" in navigator && location.hostname !== "192.168.1.50") {
+    
   window.addEventListener("load", function () {
     navigator.serviceWorker.register("sw.js").then(
       function (registration) {
@@ -27,5 +24,6 @@ if ("serviceWorker" in navigator) {
     );
   });
 }
+console.warn(`ServiceWorker no available on ${location.hostname}`);
 
 export default app;
