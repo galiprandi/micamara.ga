@@ -18,7 +18,7 @@ if ("serviceWorker" in navigator && location.hostname !== "192.168.1.50") {
       },
       function (err) {
         // registration failed :(
-        console.warn("ServiceWorker registration failed: ", err);
+        console.error("ServiceWorker registration failed: ", err);
       }
     );
   });
