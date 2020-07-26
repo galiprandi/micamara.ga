@@ -5,6 +5,7 @@ const app = new App({
   props: {},
 });
 
+
 if ("serviceWorker" in navigator) {
   if (location.hostname === "192.168.1.50") {
     console.warn(`ServiceWorker no available on ${location.hostname}`);
