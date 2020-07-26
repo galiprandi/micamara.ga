@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gadget</title>
+    <link rel="stylesheet" href="site/css/global.css" />
     <style>
       body {
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #f9e86d;
+        background-color: var(--color-1);
         height: 100vh;
-        color: #2b545c;
         font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
           "Lucida Sans", Arial, sans-serif;
       }
@@ -30,12 +30,14 @@
         outline: 0;
         border: 0;
         margin: 5em 0 0 0;
-
         line-height: 2em;
-        background-color: #f9e86d;
-        color: #2b545c;
-        font-weight: bold;
-        border: 1px solid #2b545c;
+        background-color: transparent;
+        color: var(--color-2);
+        border: 1px solid var(--color-2);
+      }
+      button:hover {
+        color: var(--color-3);
+        border-color: var(--color-3);
       }
     </style>
     <script>
