@@ -36,6 +36,7 @@
   }
   .card-image img {
     width: 100%;
+    max-width: 500px;
     height: 100%;
     padding: 1em;
   }
