@@ -49,7 +49,7 @@
     width: auto;
   }
   #logo:hover {
-    stroke: var(--Color-3);
+    stroke: var(--color-3);
   }
   #add-button {
     display: flex;

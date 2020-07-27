@@ -43,11 +43,11 @@ body {
 
 .btn-icon:hover,
 .btn-icon:active {
-  color: var(--Color-3);
+  color: var(--color-3);
 }
 
 .btn-icon.hover {
-  color: var(--Color-3);
+  color: var(--color-3);
 }
 
 svg.btn-icon path {

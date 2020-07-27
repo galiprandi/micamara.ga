@@ -61,7 +61,7 @@
     margin: 1rem 0;
   }
   #floatContainer h1 {
-    color: var(--Color-3);
+    color: var(--color-3);
   }
   #floatContainer input {
     display: block;
@@ -80,7 +80,7 @@
     margin: 1rem 0;
   }
   #floatContainer ul li:hover {
-    color: var(--Color-3);
+    color: var(--color-3);
   }
   #floatContainer .shareButtons {
     display: flex;

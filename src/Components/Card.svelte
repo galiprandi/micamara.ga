@@ -70,7 +70,7 @@
   }
 
   .outline:hover {
-    color: var(--Color-3);
+    color: var(--color-3);
   }
   .card-description {
     display: none;
