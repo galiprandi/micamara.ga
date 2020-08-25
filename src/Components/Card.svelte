@@ -51,15 +51,25 @@
     margin-top: 1rem;
   }
 
-  .card-body h1 {
+  .card-body .card-price {
+    display: inline;
     font-size: 1.2rem;
     line-height: 1.2rem;
   }
-  .card-body h1 > span {
+
+  .card-body .feeds {
+    outline: 0;
+    border: 0;
+    padding-right: 5px;
+    font-size: 14px;
+    font-family: inherit;
+  }
+  /* .card-body h1 > span {
     margin-left: 0.5rem;
     font-size: 14px;
-  }
-  .card-flag {
+  } */
+
+  .card-body .card-flag {
     display: block;
     text-transform: uppercase;
     color: var(--color-2);
@@ -129,14 +139,26 @@
   <div class="card-body">
     <h1 class="card-title">{item.name}</h1>
     {#if ONLINE}
-      <h1
-        class="card-price"
-        on:click|stopPropagation={() => window.copyToClipboard(`${item.name} ${item.price}`)}>
-        {item.price}
+      <div>
+        <h1
+          class="card-price"
+          on:click|stopPropagation={() => window.copyToClipboard(`${item.name} ${item.price}`)}>
+          {item.price}
+        </h1>
+        <!-- Credit Card -->
         {#if item.feeValue}
-          <span class="fee">{item.feeAmount} cuotas de {item.feeValue}</span>
+          <!-- <span class="fee">{item.feeAmount} cuotas de {item.feeValue}</span> -->
+          <select
+            name="feeds"
+            on:click|stopPropagation={() => window.copyToClipboard(`${item.name}    ${item.price}\n💳  ` + item.feeValue.join('\n💳  '))}
+            id="feeds"
+            class="feeds">
+            {#each item.feeValue as item}
+              <option value={item} selected>{item}</option>
+            {/each}
+          </select>
         {/if}
-      </h1>
+      </div>
     {/if}
     {#if item.stock > 0}
       <span class="card-flag in-stock">entrega inmediata</span>

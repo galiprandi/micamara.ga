@@ -186,6 +186,8 @@
         updated: { $t: updated },
       } = item;
 
+      feeValue = feeValue.split(",");
+
       ofert = !!ofert;
       active = !!active;
       activeForWeb = !!activeForWeb;
@@ -241,14 +243,13 @@
   /**
    * Save last search
    */
-  
-   window.saveSearch = (str) => {
+
+  window.saveSearch = (str) => {
     let store = getFromLocal("lastSearch");
     if (!store) store = [];
     store = [...new Set([str, ...store])].slice(0, 7);
     setToLocal("lastSearch", store);
-  }
-   
+  };
 
   function setToLocal(key, value) {
     try {

@@ -371,6 +371,10 @@ var app = (function () {
         else
             dispatch_dev("SvelteDOMSetAttribute", { node, attribute, value });
     }
+    function prop_dev(node, property, value) {
+        node[property] = value;
+        dispatch_dev("SvelteDOMSetProperty", { node, property, value });
+    }
     function set_data_dev(text, data) {
         data = '' + data;
         if (text.wholeText === data)
@@ -667,7 +671,13 @@ var app = (function () {
 
     const file$1 = "src/Components/Card.svelte";
 
-    // (121:4) {:else}
+    function get_each_context(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[2] = list[i];
+    	return child_ctx;
+    }
+
+    // (131:4) {:else}
     function create_else_block(ctx) {
     	let img;
     	let img_src_value;
@@ -679,8 +689,8 @@ var app = (function () {
     			if (img.src !== (img_src_value = "site/images/no-image.png")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*item*/ ctx[2].name);
     			attr_dev(img, "loading", "lazy");
-    			attr_dev(img, "class", "image svelte-2srs72");
-    			add_location(img, file$1, 121, 6, 2320);
+    			attr_dev(img, "class", "image svelte-5a5ktv");
+    			add_location(img, file$1, 131, 6, 2497);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, img, anchor);
@@ -699,14 +709,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(121:4) {:else}",
+    		source: "(131:4) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (115:4) {#if item.image}
+    // (125:4) {#if item.image}
     function create_if_block_3(ctx) {
     	let img;
     	let img_src_value;
@@ -718,8 +728,8 @@ var app = (function () {
     			if (img.src !== (img_src_value = imgPath + /*item*/ ctx[2].image)) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*item*/ ctx[2].name);
     			attr_dev(img, "loading", "lazy");
-    			attr_dev(img, "class", "image svelte-2srs72");
-    			add_location(img, file$1, 115, 6, 2190);
+    			attr_dev(img, "class", "image svelte-5a5ktv");
+    			add_location(img, file$1, 125, 6, 2367);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, img, anchor);
@@ -742,15 +752,16 @@ var app = (function () {
     		block,
     		id: create_if_block_3.name,
     		type: "if",
-    		source: "(115:4) {#if item.image}",
+    		source: "(125:4) {#if item.image}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (131:4) {#if ONLINE}
+    // (141:4) {#if ONLINE}
     function create_if_block_1(ctx) {
+    	let div;
     	let h1;
     	let t0_value = /*item*/ ctx[2].price + "";
     	let t0;
@@ -761,18 +772,22 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
+    			div = element("div");
     			h1 = element("h1");
     			t0 = text(t0_value);
     			t1 = space();
     			if (if_block) if_block.c();
-    			attr_dev(h1, "class", "card-price svelte-2srs72");
-    			add_location(h1, file$1, 131, 6, 2548);
+    			attr_dev(h1, "class", "card-price svelte-5a5ktv");
+    			add_location(h1, file$1, 142, 8, 2739);
+    			attr_dev(div, "class", "svelte-5a5ktv");
+    			add_location(div, file$1, 141, 6, 2725);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, h1, anchor);
+    			insert_dev(target, div, anchor);
+    			append_dev(div, h1);
     			append_dev(h1, t0);
-    			append_dev(h1, t1);
-    			if (if_block) if_block.m(h1, null);
+    			append_dev(div, t1);
+    			if (if_block) if_block.m(div, null);
 
     			if (!mounted) {
     				dispose = listen_dev(h1, "click", stop_propagation(/*click_handler*/ ctx[5]), false, false, true);
@@ -788,7 +803,7 @@ var app = (function () {
     				} else {
     					if_block = create_if_block_2(ctx);
     					if_block.c();
-    					if_block.m(h1, null);
+    					if_block.m(div, null);
     				}
     			} else if (if_block) {
     				if_block.d(1);
@@ -796,7 +811,7 @@ var app = (function () {
     			}
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(h1);
+    			if (detaching) detach_dev(div);
     			if (if_block) if_block.d();
     			mounted = false;
     			dispose();
@@ -807,43 +822,81 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(131:4) {#if ONLINE}",
+    		source: "(141:4) {#if ONLINE}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (136:8) {#if item.feeValue}
+    // (149:8) {#if item.feeValue}
     function create_if_block_2(ctx) {
-    	let span;
-    	let t0_value = /*item*/ ctx[2].feeAmount + "";
-    	let t0;
-    	let t1;
-    	let t2_value = /*item*/ ctx[2].feeValue + "";
-    	let t2;
+    	let select;
+    	let mounted;
+    	let dispose;
+    	let each_value = /*item*/ ctx[2].feeValue;
+    	validate_each_argument(each_value);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value.length; i += 1) {
+    		each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+    	}
 
     	const block = {
     		c: function create() {
-    			span = element("span");
-    			t0 = text(t0_value);
-    			t1 = text(" cuotas de ");
-    			t2 = text(t2_value);
-    			attr_dev(span, "class", "fee svelte-2srs72");
-    			add_location(span, file$1, 136, 10, 2733);
+    			select = element("select");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			attr_dev(select, "name", "feeds");
+    			attr_dev(select, "id", "feeds");
+    			attr_dev(select, "class", "feeds svelte-5a5ktv");
+    			add_location(select, file$1, 150, 10, 3060);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, span, anchor);
-    			append_dev(span, t0);
-    			append_dev(span, t1);
-    			append_dev(span, t2);
+    			insert_dev(target, select, anchor);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(select, null);
+    			}
+
+    			if (!mounted) {
+    				dispose = listen_dev(select, "click", stop_propagation(/*click_handler_1*/ ctx[6]), false, false, true);
+    				mounted = true;
+    			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*item*/ 4 && t0_value !== (t0_value = /*item*/ ctx[2].feeAmount + "")) set_data_dev(t0, t0_value);
-    			if (dirty & /*item*/ 4 && t2_value !== (t2_value = /*item*/ ctx[2].feeValue + "")) set_data_dev(t2, t2_value);
+    			if (dirty & /*item*/ 4) {
+    				each_value = /*item*/ ctx[2].feeValue;
+    				validate_each_argument(each_value);
+    				let i;
+
+    				for (i = 0; i < each_value.length; i += 1) {
+    					const child_ctx = get_each_context(ctx, each_value, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks[i] = create_each_block(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(select, null);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+
+    				each_blocks.length = each_value.length;
+    			}
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(span);
+    			if (detaching) detach_dev(select);
+    			destroy_each(each_blocks, detaching);
+    			mounted = false;
+    			dispose();
     		}
     	};
 
@@ -851,14 +904,58 @@ var app = (function () {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(136:8) {#if item.feeValue}",
+    		source: "(149:8) {#if item.feeValue}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (141:4) {#if item.stock > 0}
+    // (156:12) {#each item.feeValue as item}
+    function create_each_block(ctx) {
+    	let option;
+    	let t_value = /*item*/ ctx[2] + "";
+    	let t;
+    	let option_value_value;
+
+    	const block = {
+    		c: function create() {
+    			option = element("option");
+    			t = text(t_value);
+    			option.__value = option_value_value = /*item*/ ctx[2];
+    			option.value = option.__value;
+    			option.selected = true;
+    			add_location(option, file$1, 156, 14, 3337);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, option, anchor);
+    			append_dev(option, t);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*item*/ 4 && t_value !== (t_value = /*item*/ ctx[2] + "")) set_data_dev(t, t_value);
+
+    			if (dirty & /*item*/ 4 && option_value_value !== (option_value_value = /*item*/ ctx[2])) {
+    				prop_dev(option, "__value", option_value_value);
+    				option.value = option.__value;
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(option);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block.name,
+    		type: "each",
+    		source: "(156:12) {#each item.feeValue as item}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (163:4) {#if item.stock > 0}
     function create_if_block(ctx) {
     	let span;
 
@@ -866,8 +963,8 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			span.textContent = "entrega inmediata";
-    			attr_dev(span, "class", "card-flag in-stock svelte-2srs72");
-    			add_location(span, file$1, 141, 6, 2868);
+    			attr_dev(span, "class", "card-flag in-stock svelte-5a5ktv");
+    			add_location(span, file$1, 163, 6, 3491);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -881,7 +978,7 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(141:4) {#if item.stock > 0}",
+    		source: "(163:4) {#if item.stock > 0}",
     		ctx
     	});
 
@@ -945,25 +1042,25 @@ var app = (function () {
     			t7 = text(t7_value);
     			t8 = space();
     			div1 = element("div");
-    			attr_dev(div0, "class", "card-image svelte-2srs72");
-    			add_location(div0, file$1, 113, 2, 2138);
-    			attr_dev(h1, "class", "card-title svelte-2srs72");
-    			add_location(h1, file$1, 129, 4, 2485);
-    			attr_dev(button0, "class", "outline svelte-2srs72");
-    			add_location(button0, file$1, 143, 4, 2940);
-    			attr_dev(button1, "class", "outline svelte-2srs72");
-    			add_location(button1, file$1, 148, 4, 3068);
-    			attr_dev(div1, "class", "card-description svelte-2srs72");
-    			add_location(div1, file$1, 153, 4, 3208);
-    			attr_dev(div2, "class", "card-body svelte-2srs72");
-    			add_location(div2, file$1, 128, 2, 2457);
-    			attr_dev(div3, "class", "card svelte-2srs72");
+    			attr_dev(div0, "class", "card-image svelte-5a5ktv");
+    			add_location(div0, file$1, 123, 2, 2315);
+    			attr_dev(h1, "class", "card-title svelte-5a5ktv");
+    			add_location(h1, file$1, 139, 4, 2662);
+    			attr_dev(button0, "class", "outline svelte-5a5ktv");
+    			add_location(button0, file$1, 165, 4, 3563);
+    			attr_dev(button1, "class", "outline svelte-5a5ktv");
+    			add_location(button1, file$1, 170, 4, 3691);
+    			attr_dev(div1, "class", "card-description svelte-5a5ktv");
+    			add_location(div1, file$1, 175, 4, 3831);
+    			attr_dev(div2, "class", "card-body svelte-5a5ktv");
+    			add_location(div2, file$1, 138, 2, 2634);
+    			attr_dev(div3, "class", "card svelte-5a5ktv");
     			attr_dev(div3, "data-name", div3_data_name_value = /*item*/ ctx[2].name);
     			attr_dev(div3, "title", "Click para ampliar o cerrar");
     			attr_dev(div3, "id", div3_id_value = /*item*/ ctx[2].id);
     			toggle_class(div3, "outStock", /*item*/ ctx[2].stock < 1);
     			toggle_class(div3, "active", /*active*/ ctx[3]);
-    			add_location(div3, file$1, 105, 0, 1964);
+    			add_location(div3, file$1, 115, 0, 2141);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -992,8 +1089,8 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(button0, "click", stop_propagation(/*click_handler_1*/ ctx[6]), false, false, true),
-    					listen_dev(button1, "click", stop_propagation(/*click_handler_2*/ ctx[7]), false, false, true),
+    					listen_dev(button0, "click", stop_propagation(/*click_handler_2*/ ctx[7]), false, false, true),
+    					listen_dev(button1, "click", stop_propagation(/*click_handler_3*/ ctx[8]), false, false, true),
     					listen_dev(div3, "click", /*clickOnCard*/ ctx[4], false, false, false)
     				];
 
@@ -1110,8 +1207,9 @@ var app = (function () {
     	let { $$slots = {}, $$scope } = $$props;
     	validate_slots("Card", $$slots, []);
     	const click_handler = () => window.copyToClipboard(`${item.name} ${item.price}`);
-    	const click_handler_1 = () => $$invalidate(0, QUERY = item.brand);
-    	const click_handler_2 = () => $$invalidate(0, QUERY = item.productType);
+    	const click_handler_1 = () => window.copyToClipboard(`${item.name}    ${item.price}\n💳  ` + item.feeValue.join("\n💳  "));
+    	const click_handler_2 = () => $$invalidate(0, QUERY = item.brand);
+    	const click_handler_3 = () => $$invalidate(0, QUERY = item.productType);
 
     	$$self.$set = $$props => {
     		if ("QUERY" in $$props) $$invalidate(0, QUERY = $$props.QUERY);
@@ -1148,7 +1246,8 @@ var app = (function () {
     		clickOnCard,
     		click_handler,
     		click_handler_1,
-    		click_handler_2
+    		click_handler_2,
+    		click_handler_3
     	];
     }
 
@@ -1208,7 +1307,7 @@ var app = (function () {
     /* src/Components/ProductList.svelte generated by Svelte v3.24.0 */
     const file$2 = "src/Components/ProductList.svelte";
 
-    function get_each_context(ctx, list, i) {
+    function get_each_context$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
     	child_ctx[7] = list[i];
     	return child_ctx;
@@ -1289,7 +1388,7 @@ var app = (function () {
     	let each_blocks = [];
 
     	for (let i = 0; i < each_value.length; i += 1) {
-    		each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+    		each_blocks[i] = create_each_block$1(get_each_context$1(ctx, each_value, i));
     	}
 
     	const out = i => transition_out(each_blocks[i], 1, 1, () => {
@@ -1319,13 +1418,13 @@ var app = (function () {
     				let i;
 
     				for (i = 0; i < each_value.length; i += 1) {
-    					const child_ctx = get_each_context(ctx, each_value, i);
+    					const child_ctx = get_each_context$1(ctx, each_value, i);
 
     					if (each_blocks[i]) {
     						each_blocks[i].p(child_ctx, dirty);
     						transition_in(each_blocks[i], 1);
     					} else {
-    						each_blocks[i] = create_each_block(child_ctx);
+    						each_blocks[i] = create_each_block$1(child_ctx);
     						each_blocks[i].c();
     						transition_in(each_blocks[i], 1);
     						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
@@ -1579,7 +1678,7 @@ var app = (function () {
     }
 
     // (99:4) {#each PRODUCTS_SHOWED as item}
-    function create_each_block(ctx) {
+    function create_each_block$1(ctx) {
     	let current_block_type_index;
     	let if_block;
     	let if_block_anchor;
@@ -1647,7 +1746,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_each_block.name,
+    		id: create_each_block$1.name,
     		type: "each",
     		source: "(99:4) {#each PRODUCTS_SHOWED as item}",
     		ctx
@@ -1875,7 +1974,7 @@ var app = (function () {
     const { console: console_1$1 } = globals;
     const file$3 = "src/Components/Footer.svelte";
 
-    function get_each_context$1(ctx, list, i) {
+    function get_each_context$2(ctx, list, i) {
     	const child_ctx = ctx.slice();
     	child_ctx[15] = list[i];
     	return child_ctx;
@@ -2150,7 +2249,7 @@ var app = (function () {
     	let each_blocks = [];
 
     	for (let i = 0; i < each_value.length; i += 1) {
-    		each_blocks[i] = create_each_block$1(get_each_context$1(ctx, each_value, i));
+    		each_blocks[i] = create_each_block$2(get_each_context$2(ctx, each_value, i));
     	}
 
     	const block = {
@@ -2185,12 +2284,12 @@ var app = (function () {
     				let i;
 
     				for (i = 0; i < each_value.length; i += 1) {
-    					const child_ctx = get_each_context$1(ctx, each_value, i);
+    					const child_ctx = get_each_context$2(ctx, each_value, i);
 
     					if (each_blocks[i]) {
     						each_blocks[i].p(child_ctx, dirty);
     					} else {
-    						each_blocks[i] = create_each_block$1(child_ctx);
+    						each_blocks[i] = create_each_block$2(child_ctx);
     						each_blocks[i].c();
     						each_blocks[i].m(ul, null);
     					}
@@ -2223,7 +2322,7 @@ var app = (function () {
     }
 
     // (105:14) {#each LAST_SEARCH as item}
-    function create_each_block$1(ctx) {
+    function create_each_block$2(ctx) {
     	let li;
     	let t0_value = /*item*/ ctx[15] + "";
     	let t0;
@@ -2266,7 +2365,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_each_block$1.name,
+    		id: create_each_block$2.name,
     		type: "each",
     		source: "(105:14) {#each LAST_SEARCH as item}",
     		ctx
@@ -2956,7 +3055,7 @@ var app = (function () {
 
     const file$4 = "src/Components/Aside.svelte";
 
-    function get_each_context$2(ctx, list, i) {
+    function get_each_context$3(ctx, list, i) {
     	const child_ctx = ctx.slice();
     	child_ctx[9] = list[i];
     	child_ctx[11] = i;
@@ -3096,7 +3195,7 @@ var app = (function () {
     	let each_blocks = [];
 
     	for (let i = 0; i < each_value.length; i += 1) {
-    		each_blocks[i] = create_each_block$2(get_each_context$2(ctx, each_value, i));
+    		each_blocks[i] = create_each_block$3(get_each_context$3(ctx, each_value, i));
     	}
 
     	const block = {
@@ -3121,12 +3220,12 @@ var app = (function () {
     				let i;
 
     				for (i = 0; i < each_value.length; i += 1) {
-    					const child_ctx = get_each_context$2(ctx, each_value, i);
+    					const child_ctx = get_each_context$3(ctx, each_value, i);
 
     					if (each_blocks[i]) {
     						each_blocks[i].p(child_ctx, dirty);
     					} else {
-    						each_blocks[i] = create_each_block$2(child_ctx);
+    						each_blocks[i] = create_each_block$3(child_ctx);
     						each_blocks[i].c();
     						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
     					}
@@ -3157,7 +3256,7 @@ var app = (function () {
     }
 
     // (136:12) {#each BRANDS as item, i}
-    function create_each_block$2(ctx) {
+    function create_each_block$3(ctx) {
     	let li;
     	let t_value = /*item*/ ctx[9] + "";
     	let t;
@@ -3199,7 +3298,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_each_block$2.name,
+    		id: create_each_block$3.name,
     		type: "each",
     		source: "(136:12) {#each BRANDS as item, i}",
     		ctx
@@ -3773,7 +3872,7 @@ var app = (function () {
     const { console: console_1$2 } = globals;
     const file$6 = "src/Components/App.svelte";
 
-    // (331:2) {#if PRODUCTS_SHOWED}
+    // (332:2) {#if PRODUCTS_SHOWED}
     function create_if_block$5(ctx) {
     	let current_block_type_index;
     	let if_block;
@@ -3976,14 +4075,14 @@ var app = (function () {
     		block,
     		id: create_if_block$5.name,
     		type: "if",
-    		source: "(331:2) {#if PRODUCTS_SHOWED}",
+    		source: "(332:2) {#if PRODUCTS_SHOWED}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (338:4) {:else}
+    // (339:4) {:else}
     function create_else_block$4(ctx) {
     	let div;
     	let h2;
@@ -3994,9 +4093,9 @@ var app = (function () {
     			h2 = element("h2");
     			h2.textContent = "No hay productos con esa descripción :(";
     			attr_dev(h2, "class", "svelte-fbbdtu");
-    			add_location(h2, file$6, 339, 8, 8628);
+    			add_location(h2, file$6, 340, 8, 8661);
     			attr_dev(div, "class", "noProducts svelte-fbbdtu");
-    			add_location(div, file$6, 338, 6, 8595);
+    			add_location(div, file$6, 339, 6, 8628);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -4014,14 +4113,14 @@ var app = (function () {
     		block,
     		id: create_else_block$4.name,
     		type: "else",
-    		source: "(338:4) {:else}",
+    		source: "(339:4) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (332:4) {#if PRODUCTS_SHOWED.length}
+    // (333:4) {#if PRODUCTS_SHOWED.length}
     function create_if_block_1$4(ctx) {
     	let productlist;
     	let updating_QUERY;
@@ -4098,7 +4197,7 @@ var app = (function () {
     		block,
     		id: create_if_block_1$4.name,
     		type: "if",
-    		source: "(332:4) {#if PRODUCTS_SHOWED.length}",
+    		source: "(333:4) {#if PRODUCTS_SHOWED.length}",
     		ctx
     	});
 
@@ -4120,7 +4219,7 @@ var app = (function () {
     			t = space();
     			if (if_block) if_block.c();
     			attr_dev(main, "class", "svelte-fbbdtu");
-    			add_location(main, file$6, 323, 0, 8244);
+    			add_location(main, file$6, 324, 0, 8277);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -4353,6 +4452,7 @@ var app = (function () {
 
     				const id = i;
     				let { gsx$producto: { $t: name }, gsx$pvp: { $t: price }, gsx$fin: { $t: feeAmount }, gsx$cuotas: { $t: feeValue }, gsx$stock: { $t: stock }, gsx$d: { $t: ofert }, gsx$categoria: { $t: categorie }, gsx$rubro: { $t: productType }, gsx$marca: { $t: brand }, gsx$gtia: { $t: warranty }, gsx$desc: { $t: description }, gsx$img: { $t: image }, gsx$act: { $t: active }, gsx$web: { $t: activeForWeb }, id: { $t: link }, updated: { $t: updated } } = item;
+    				feeValue = feeValue.split(",");
     				ofert = !!ofert;
     				active = !!active;
     				activeForWeb = !!activeForWeb;
