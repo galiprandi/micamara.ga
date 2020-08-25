@@ -323,6 +323,7 @@
 </style>
 
 <main>
+
   <Header />
 
   {#if PRODUCTS_SHOWED}
