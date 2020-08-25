@@ -63,7 +63,7 @@
     padding-right: 5px;
     font-size: 14px;
     font-family: inherit;
-    background-color: inherit;
+    background-color: transparent;
   }
 
   .card-body .card-flag {
