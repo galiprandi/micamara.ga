@@ -63,11 +63,8 @@
     padding-right: 5px;
     font-size: 14px;
     font-family: inherit;
+    background-color: inherit;
   }
-  /* .card-body h1 > span {
-    margin-left: 0.5rem;
-    font-size: 14px;
-  } */
 
   .card-body .card-flag {
     display: block;
@@ -149,8 +146,8 @@
         {#if item.feeValue}
           <!-- <span class="fee">{item.feeAmount} cuotas de {item.feeValue}</span> -->
           <select
+            on:blur|stopPropagation={() => window.copyToClipboard(`${item.name}    ${item.price}\n💳  ` + item.feeValue.join('\n💳  '))}
             name="feeds"
-            on:click|stopPropagation={() => window.copyToClipboard(`${item.name}    ${item.price}\n💳  ` + item.feeValue.join('\n💳  '))}
             id="feeds"
             class="feeds">
             {#each item.feeValue as item}

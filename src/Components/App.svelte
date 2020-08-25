@@ -328,6 +328,12 @@
   <!-- {#if (location.host = '0.0.0.0:8080')}
     <Icon iconName="close" title="Click" stroke="orangered" fill="orangered" />
   {/if} -->
+  <select name="prueba" id="prueba">
+    <option value="1 cuota" selected>1 cuota</option>
+    <option value="1 cuota" selected>2 cuota</option>
+    <option value="1 cuota" selected>3 cuota</option>
+    <option value="1 cuota" selected>4 cuota</option>
+  </select>
 
   {#if PRODUCTS_SHOWED}
     {#if PRODUCTS_SHOWED.length}
