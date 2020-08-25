@@ -4,6 +4,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
+    "deploy": "npm run build; git add .; git commit -m \"New deploy\"; git push ",
     "start": "sirv ./",
     "resize-images": "identify -format '%w %h %i\\n' ./products_images/*.jpg | grep --invert-match '500 500' | awk '{print $3}' | tr '\\n' '\\0' | xargs -0 mogrify -verbose -resize '490x490' -extent '500x500'",
     "upload-images": "npm run resize-images; git add ./products_images/.; git commit -m \"Upload new images\"; git push"
