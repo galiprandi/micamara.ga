@@ -1,21 +1,21 @@
 <script>
-  const imgPath = "/products_images/";
+  const imgPath = "/products_images/"
 
-  let active = false;
+  let active = false
 
-  const isShare = navigator.share;
+  const isShare = navigator.share
 
-  export let QUERY, ONLINE, item;
+  export let QUERY, ONLINE, item
 
   // Open / Close Card
   function clickOnCard() {
-    const className = "active";
+    const className = "active"
     if (this.classList.contains(className)) {
-      this.classList.remove(className);
-      location.hash = QUERY.replace(/( )/g, "_");
+      this.classList.remove(className)
+      location.hash = QUERY.replace(/( )/g, "_")
     } else {
-      location.hash = this.dataset.name.replace(/( )/g, "_");
-      this.classList.add(className);
+      location.hash = this.dataset.name.replace(/( )/g, "_")
+      this.classList.add(className)
     }
   }
 </script>
@@ -106,6 +106,15 @@
     display: block;
     max-width: 80ch;
     margin: auto;
+  }
+  .card.active .card-image::after {
+    content: "click para volver";
+    display: block;
+    color: grey;
+    position: fixed;
+    margin: 10px 0 0 0;
+    text-transform: uppercase;
+    font-size: small;
   }
 </style>
 
