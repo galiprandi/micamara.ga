@@ -1,5 +1,5 @@
 <script>
-  const imgPath = "/products_images/"
+  const imgPath = '/products_images/'
 
   let active = false
 
@@ -9,16 +9,84 @@
 
   // Open / Close Card
   function clickOnCard() {
-    const className = "active"
+    const className = 'active'
     if (this.classList.contains(className)) {
       this.classList.remove(className)
-      location.hash = QUERY.replace(/( )/g, "_")
+      location.hash = QUERY.replace(/( )/g, '_')
     } else {
-      location.hash = this.dataset.name.replace(/( )/g, "_")
+      location.hash = this.dataset.name.replace(/( )/g, '_')
       this.classList.add(className)
     }
   }
 </script>
+
+<!-- on:click={(e) => cardClick(item.id)} -->
+<div
+  on:click={clickOnCard}
+  class="card"
+  class:outStock={item.stock < 1}
+  class:active
+  data-name={item.name}
+  title="Click para ampliar o cerrar"
+  id={item.id}
+>
+  <div class="card-image">
+    {#if item.image}
+      <img
+        src={imgPath + item.image}
+        alt={`${item.name} ${item.price}`}
+        title={`${item.name} ${item.price}`}
+        loading="lazy"
+        class="image"
+      />
+    {:else}
+      <img
+        src="site/images/no-image.png"
+        alt={`${item.name} ${item.price}`}
+        title={`${item.name} ${item.price}`}
+        loading="lazy"
+        class="image"
+      />
+    {/if}
+  </div>
+  <div class="card-body">
+    <h1 class="card-title">{item.name}</h1>
+    {#if ONLINE}
+      <div>
+        <h1 class="card-price" on:click|stopPropagation={() => window.copyToClipboard(`${item.name} ${item.price}`)}>
+          {item.price}
+        </h1>
+        <!-- Credit Card -->
+        {#if item.feeValue}
+          <!-- <span class="fee">{item.feeAmount} cuotas de {item.feeValue}</span> -->
+          <select
+            on:blur|stopPropagation={() =>
+              window.copyToClipboard(`${item.name}    ${item.price}\n💳  ` + item.feeValue.join('\n💳  '))}
+            name="feeds"
+            id="feeds"
+            class="feeds"
+          >
+            {#each item.feeValue as item}
+              <option value={item} selected>{item}</option>
+            {/each}
+          </select>
+        {/if}
+      </div>
+    {/if}
+    {#if item.stock > 0}
+      <span class="card-flag in-stock">entrega inmediata</span>
+    {/if}
+    <button on:click|stopPropagation={() => (QUERY = item.brand)} class="outline">
+      {item.brand}
+    </button>
+    <button on:click|stopPropagation={() => (QUERY = item.productType)} class="outline">
+      {item.productType}
+    </button>
+    <div class="card-description">
+      {@html item.description}
+    </div>
+  </div>
+</div>
 
 <style>
   .card {
@@ -108,7 +176,7 @@
     margin: auto;
   }
   .card.active .card-image::after {
-    content: "click para volver";
+    content: 'click para volver';
     display: block;
     color: grey;
     position: fixed;
@@ -117,70 +185,3 @@
     font-size: small;
   }
 </style>
-
-<!-- on:click={(e) => cardClick(item.id)} -->
-<div
-  on:click={clickOnCard}
-  class="card"
-  class:outStock={item.stock < 1}
-  class:active
-  data-name={item.name}
-  title="Click para ampliar o cerrar"
-  id={item.id}>
-  <div class="card-image">
-    {#if item.image}
-      <img
-        src={imgPath + item.image}
-        alt={item.name}
-        loading="lazy"
-        class="image" />
-    {:else}
-      <img
-        src="site/images/no-image.png"
-        alt={item.name}
-        loading="lazy"
-        class="image" />
-    {/if}
-  </div>
-  <div class="card-body">
-    <h1 class="card-title">{item.name}</h1>
-    {#if ONLINE}
-      <div>
-        <h1
-          class="card-price"
-          on:click|stopPropagation={() => window.copyToClipboard(`${item.name} ${item.price}`)}>
-          {item.price}
-        </h1>
-        <!-- Credit Card -->
-        {#if item.feeValue}
-          <!-- <span class="fee">{item.feeAmount} cuotas de {item.feeValue}</span> -->
-          <select
-            on:blur|stopPropagation={() => window.copyToClipboard(`${item.name}    ${item.price}\n💳  ` + item.feeValue.join('\n💳  '))}
-            name="feeds"
-            id="feeds"
-            class="feeds">
-            {#each item.feeValue as item}
-              <option value={item} selected>{item}</option>
-            {/each}
-          </select>
-        {/if}
-      </div>
-    {/if}
-    {#if item.stock > 0}
-      <span class="card-flag in-stock">entrega inmediata</span>
-    {/if}
-    <button
-      on:click|stopPropagation={() => (QUERY = item.brand)}
-      class="outline">
-      {item.brand}
-    </button>
-    <button
-      on:click|stopPropagation={() => (QUERY = item.productType)}
-      class="outline">
-      {item.productType}
-    </button>
-    <div class="card-description">
-      {@html item.description}
-    </div>
-  </div>
-</div>

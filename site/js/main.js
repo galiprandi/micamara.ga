@@ -677,27 +677,33 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (137:4) {:else}
+    // (42:4) {:else}
     function create_else_block(ctx) {
     	let img;
     	let img_src_value;
     	let img_alt_value;
+    	let img_title_value;
 
     	const block = {
     		c: function create() {
     			img = element("img");
     			if (img.src !== (img_src_value = "site/images/no-image.png")) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", img_alt_value = /*item*/ ctx[2].name);
+    			attr_dev(img, "alt", img_alt_value = `${/*item*/ ctx[2].name} ${/*item*/ ctx[2].price}`);
+    			attr_dev(img, "title", img_title_value = `${/*item*/ ctx[2].name} ${/*item*/ ctx[2].price}`);
     			attr_dev(img, "loading", "lazy");
-    			attr_dev(img, "class", "image svelte-16mmk5r");
-    			add_location(img, file$1, 137, 6, 2645);
+    			attr_dev(img, "class", "image svelte-ugmm67");
+    			add_location(img, file$1, 42, 6, 958);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, img, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*item*/ 4 && img_alt_value !== (img_alt_value = /*item*/ ctx[2].name)) {
+    			if (dirty & /*item*/ 4 && img_alt_value !== (img_alt_value = `${/*item*/ ctx[2].name} ${/*item*/ ctx[2].price}`)) {
     				attr_dev(img, "alt", img_alt_value);
+    			}
+
+    			if (dirty & /*item*/ 4 && img_title_value !== (img_title_value = `${/*item*/ ctx[2].name} ${/*item*/ ctx[2].price}`)) {
+    				attr_dev(img, "title", img_title_value);
     			}
     		},
     		d: function destroy(detaching) {
@@ -709,27 +715,29 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(137:4) {:else}",
+    		source: "(42:4) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (131:4) {#if item.image}
+    // (34:4) {#if item.image}
     function create_if_block_3(ctx) {
     	let img;
     	let img_src_value;
     	let img_alt_value;
+    	let img_title_value;
 
     	const block = {
     		c: function create() {
     			img = element("img");
     			if (img.src !== (img_src_value = imgPath + /*item*/ ctx[2].image)) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", img_alt_value = /*item*/ ctx[2].name);
+    			attr_dev(img, "alt", img_alt_value = `${/*item*/ ctx[2].name} ${/*item*/ ctx[2].price}`);
+    			attr_dev(img, "title", img_title_value = `${/*item*/ ctx[2].name} ${/*item*/ ctx[2].price}`);
     			attr_dev(img, "loading", "lazy");
-    			attr_dev(img, "class", "image svelte-16mmk5r");
-    			add_location(img, file$1, 131, 6, 2515);
+    			attr_dev(img, "class", "image svelte-ugmm67");
+    			add_location(img, file$1, 34, 6, 758);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, img, anchor);
@@ -739,8 +747,12 @@ var app = (function () {
     				attr_dev(img, "src", img_src_value);
     			}
 
-    			if (dirty & /*item*/ 4 && img_alt_value !== (img_alt_value = /*item*/ ctx[2].name)) {
+    			if (dirty & /*item*/ 4 && img_alt_value !== (img_alt_value = `${/*item*/ ctx[2].name} ${/*item*/ ctx[2].price}`)) {
     				attr_dev(img, "alt", img_alt_value);
+    			}
+
+    			if (dirty & /*item*/ 4 && img_title_value !== (img_title_value = `${/*item*/ ctx[2].name} ${/*item*/ ctx[2].price}`)) {
+    				attr_dev(img, "title", img_title_value);
     			}
     		},
     		d: function destroy(detaching) {
@@ -752,14 +764,14 @@ var app = (function () {
     		block,
     		id: create_if_block_3.name,
     		type: "if",
-    		source: "(131:4) {#if item.image}",
+    		source: "(34:4) {#if item.image}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (147:4) {#if ONLINE}
+    // (54:4) {#if ONLINE}
     function create_if_block_1(ctx) {
     	let div;
     	let h1;
@@ -777,10 +789,10 @@ var app = (function () {
     			t0 = text(t0_value);
     			t1 = space();
     			if (if_block) if_block.c();
-    			attr_dev(h1, "class", "card-price svelte-16mmk5r");
-    			add_location(h1, file$1, 148, 8, 2887);
-    			attr_dev(div, "class", "svelte-16mmk5r");
-    			add_location(div, file$1, 147, 6, 2873);
+    			attr_dev(h1, "class", "card-price svelte-ugmm67");
+    			add_location(h1, file$1, 55, 8, 1270);
+    			attr_dev(div, "class", "svelte-ugmm67");
+    			add_location(div, file$1, 54, 6, 1256);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -822,14 +834,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(147:4) {#if ONLINE}",
+    		source: "(54:4) {#if ONLINE}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (155:8) {#if item.feeValue}
+    // (60:8) {#if item.feeValue}
     function create_if_block_2(ctx) {
     	let select;
     	let mounted;
@@ -852,8 +864,8 @@ var app = (function () {
 
     			attr_dev(select, "name", "feeds");
     			attr_dev(select, "id", "feeds");
-    			attr_dev(select, "class", "feeds svelte-16mmk5r");
-    			add_location(select, file$1, 156, 10, 3208);
+    			attr_dev(select, "class", "feeds svelte-ugmm67");
+    			add_location(select, file$1, 61, 10, 1571);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, select, anchor);
@@ -904,14 +916,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(155:8) {#if item.feeValue}",
+    		source: "(60:8) {#if item.feeValue}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (162:12) {#each item.feeValue as item}
+    // (69:12) {#each item.feeValue as item}
     function create_each_block(ctx) {
     	let option;
     	let t_value = /*item*/ ctx[2] + "";
@@ -925,7 +937,7 @@ var app = (function () {
     			option.__value = option_value_value = /*item*/ ctx[2];
     			option.value = option.__value;
     			option.selected = true;
-    			add_location(option, file$1, 162, 14, 3484);
+    			add_location(option, file$1, 69, 14, 1872);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -948,14 +960,14 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(162:12) {#each item.feeValue as item}",
+    		source: "(69:12) {#each item.feeValue as item}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (169:4) {#if item.stock > 0}
+    // (76:4) {#if item.stock > 0}
     function create_if_block(ctx) {
     	let span;
 
@@ -963,8 +975,8 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			span.textContent = "entrega inmediata";
-    			attr_dev(span, "class", "card-flag in-stock svelte-16mmk5r");
-    			add_location(span, file$1, 169, 6, 3638);
+    			attr_dev(span, "class", "card-flag in-stock svelte-ugmm67");
+    			add_location(span, file$1, 76, 6, 2026);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -978,7 +990,7 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(169:4) {#if item.stock > 0}",
+    		source: "(76:4) {#if item.stock > 0}",
     		ctx
     	});
 
@@ -1042,25 +1054,25 @@ var app = (function () {
     			t7 = text(t7_value);
     			t8 = space();
     			div1 = element("div");
-    			attr_dev(div0, "class", "card-image svelte-16mmk5r");
-    			add_location(div0, file$1, 129, 2, 2463);
-    			attr_dev(h1, "class", "card-title svelte-16mmk5r");
-    			add_location(h1, file$1, 145, 4, 2810);
-    			attr_dev(button0, "class", "outline svelte-16mmk5r");
-    			add_location(button0, file$1, 171, 4, 3710);
-    			attr_dev(button1, "class", "outline svelte-16mmk5r");
-    			add_location(button1, file$1, 176, 4, 3838);
-    			attr_dev(div1, "class", "card-description svelte-16mmk5r");
-    			add_location(div1, file$1, 181, 4, 3978);
-    			attr_dev(div2, "class", "card-body svelte-16mmk5r");
-    			add_location(div2, file$1, 144, 2, 2782);
-    			attr_dev(div3, "class", "card svelte-16mmk5r");
+    			attr_dev(div0, "class", "card-image svelte-ugmm67");
+    			add_location(div0, file$1, 32, 2, 706);
+    			attr_dev(h1, "class", "card-title svelte-ugmm67");
+    			add_location(h1, file$1, 52, 4, 1193);
+    			attr_dev(button0, "class", "outline svelte-ugmm67");
+    			add_location(button0, file$1, 78, 4, 2098);
+    			attr_dev(button1, "class", "outline svelte-ugmm67");
+    			add_location(button1, file$1, 81, 4, 2214);
+    			attr_dev(div1, "class", "card-description svelte-ugmm67");
+    			add_location(div1, file$1, 84, 4, 2342);
+    			attr_dev(div2, "class", "card-body svelte-ugmm67");
+    			add_location(div2, file$1, 51, 2, 1165);
+    			attr_dev(div3, "class", "card svelte-ugmm67");
     			attr_dev(div3, "data-name", div3_data_name_value = /*item*/ ctx[2].name);
     			attr_dev(div3, "title", "Click para ampliar o cerrar");
     			attr_dev(div3, "id", div3_id_value = /*item*/ ctx[2].id);
     			toggle_class(div3, "outStock", /*item*/ ctx[2].stock < 1);
     			toggle_class(div3, "active", /*active*/ ctx[3]);
-    			add_location(div3, file$1, 121, 0, 2289);
+    			add_location(div3, file$1, 23, 0, 531);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
