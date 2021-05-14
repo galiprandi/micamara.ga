@@ -1,0 +1,16 @@
+@import '../../global.scss';
+
+$nav-height: 3em;
+
+Footer.app-footer {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: $nav-height;
+  width: auto;
+  background-color: $primary-color;
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0;
+  z-index: 99;
+}

@@ -1,0 +1,16 @@
+/* Colors */
+$primary-color: #ffe66d;
+$secondary-color: #1a535c;
+$light-color: #e5e5e5;
+
+$text-color: #101010;
+
+$background: #ffe66d;
+$foreground: #101010;
+
+.material-icons {
+  color: $secondary-color;
+}
+.material-icons.btn {
+  cursor: pointer;
+}

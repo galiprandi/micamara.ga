@@ -1,0 +1,89 @@
+@import '../../global.scss';
+
+.aside-menu {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  max-height: 100vh;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  transform: translateX(100%);
+  transition-property: transform;
+  transition-duration: 500ms;
+  transition-delay: 20ms;
+  transition-timing-function: ease-in-out;
+
+  &.active {
+    transform: translateX(0);
+  }
+
+  & .container {
+    background-color: $primary-color;
+    margin-left: auto;
+    line-height: 2;
+    text-align: right;
+    text-transform: capitalize;
+    overflow: auto;
+    box-shadow: 0 0 32px -8px black;
+
+    // Title Bar
+    & .title {
+      font-weight: normal;
+      display: flex;
+      align-items: center;
+
+      span.name {
+        flex-grow: 1;
+        text-align: left;
+        margin-left: 2em;
+      }
+    }
+
+    // Close button
+    & span.btn {
+      padding: 10px;
+      margin-left: auto;
+    }
+
+    // Item list
+    & ul.menu-items {
+      width: -webkit-max-content;
+      width: -moz-max-content;
+      width: max-content;
+      margin: 0 0 2em 0;
+      padding: 0;
+      list-style: none;
+      cursor: pointer;
+
+      // Items
+      & li {
+        padding: 0 2em;
+        line-height: 2;
+        transition-property: color, background;
+        transition-duration: 50ms;
+
+        &:hover,
+        &.active {
+          background-color: $secondary-color;
+          color: $light-color;
+
+          // Icons
+          & span {
+            color: $primary-color;
+          }
+        }
+      }
+    }
+
+    // Button Up
+    & .btn.up {
+      display: block;
+      text-align: center;
+    }
+    // .container
+  }
+
+  // .aside-menu
+}

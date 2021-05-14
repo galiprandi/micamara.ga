@@ -1,0 +1,15 @@
+.rating .star {
+  width: 1em;
+  height: 1em;
+  background: url('./start-black.png') center no-repeat;
+  cursor: pointer;
+  display: inline-block;
+  background-size: cover;
+  padding: 0 10px;
+}
+
+.rating .star:hover,
+.rating .star.active {
+  color: tomato;
+  background-image: url('./start.png');
+}

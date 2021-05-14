@@ -1,0 +1,37 @@
+.card {
+  & .card-image {
+    position: relative;
+
+    & img {
+      max-width: 100%;
+      padding: 5px;
+    }
+
+    & span.tag {
+      position: absolute;
+      padding: 5px;
+      background-color: #fff;
+      border-radius: 50%;
+    }
+
+    & .recommended {
+      top: 0;
+      left: 0;
+      color: goldenrod;
+      transform: scale(1.1);
+    }
+    & .favorite {
+      top: 0;
+      right: 0;
+      color: rgb(255 99 71 / 60%);
+      transition-property: transform, color;
+      transition: 0.2s ease-in-out;
+
+      &:hover,
+      &.active {
+        color: rgb(255 99 71 / 100%);
+        transform: scale(1.1);
+      }
+    }
+  }
+}

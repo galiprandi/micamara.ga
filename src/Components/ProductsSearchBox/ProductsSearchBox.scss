@@ -1,0 +1,33 @@
+@import '../../global.scss';
+
+.searchForm {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+
+  & > input {
+    color: $secondary-color;
+    text-align: center;
+    text-transform: capitalize;
+    height: 26px;
+    width: 20ch;
+    font-size: 14px;
+    border: 0;
+    border-bottom: 1px solid $secondary-color;
+    outline: 0;
+    background-color: $background;
+    transform: translateX(100%);
+    transition: 0.5s transform linear;
+  }
+
+  & > input.active {
+    transform: translateX(0);
+  }
+
+  & > span.btn {
+    position: relative;
+    padding: 1px;
+    background-color: $background;
+    font-size: 2em;
+  }
+}
