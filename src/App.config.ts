@@ -12,6 +12,6 @@ export const App = {
   searchLimitResult: 50,
 
   // Products
-  productsImagesURL: 'https://micamara.ga/products_images/',
+  productsImagesURL: 'https://galiprandi.github.io/statics.micamara.ga/products-images',
   noImageSRC: 'https://micamara.ga/site/images/no-image.png'
 }
