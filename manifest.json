@@ -1,0 +1,28 @@
+{
+  "short_name": "Gadget",
+  "name": "Gadget Tucumán",
+  "description": "Venta y reparación de equipamiento para fotógrafos.",
+  "lang": "es-AR",
+  "start_url": "./",
+  "display": "standalone",
+  "theme_color": "#2c2c2c",
+  "background_color": "#ffe66d",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "type": "image/x-icon",
+      "sizes": "92x92"
+    },
+    {
+      "src": "site/icons/logo-92.png",
+      "type": "image/png",
+      "sizes": "92x92"
+    },
+    {
+      "src": "site/icons/logo-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ]
+}
